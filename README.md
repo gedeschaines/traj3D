@@ -48,9 +48,9 @@ The development of traj3D has been conducted on Ubuntu Linux platforms and as su
 
 To execute **TDOF** using provided ./txt/sample.txt namelist input file, enter the following command
 
-  ./Exec_TDOF sample
+    ./Exec_TDOF sample
 
-from within the ./traj3D directory. During program exectution standard output will be written to ./out/TDOF_sample.out and trajectory geocentric geodesy data (longitude, latitude, altitude) will be written to ./dat/TDOF_geoc_sample.dat. Since geocentric coordinates cannot be used to accurately display paths and trajectories in Google Earth, the **traj3D** programs must be utilized if this capability is desired.
+from within the ./traj3D directory. During program execution standard output will be written to ./out/TDOF_sample.out and trajectory geocentric geodesy data (longitude, latitude, altitude) will be written to ./dat/TDOF_geoc_sample.dat. Since geocentric coordinates cannot be used to accurately display paths and trajectories in Google Earth, the **traj3D** programs must be utilized if this capability is desired.
 
 ### Basic Ballistic Trajectory Simulation ###
 

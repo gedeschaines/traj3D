@@ -3,7 +3,7 @@
 ____________
 
 <p align="center">
- <a href="https://youtu.be/mKu9COBJzXw"><img src="./doc/traj3D1BallisticTrajectories.png" width="830" height="570" alt="traj3D1 generated ballistic trajectories displayed in Google Earth Pro"/></a>
+ <a href="https://youtu.be/mKu9COBJzXw" target="_blank"><img src="./doc/traj3D1BallisticTrajectories.png" width="830" height="570" alt="traj3D1 generated ballistic trajectories displayed in Google Earth Pro"/></a>
 </p>
 
 A set of Fortran programs derived from the three-degree of freedom (3DOF) reentry trajectory computer code **TDOF** documented in "Users Manual for the 3DOF Trajectory Computer Program" presented as reference [1].
@@ -12,7 +12,7 @@ A set of Fortran programs derived from the three-degree of freedom (3DOF) reentr
 
 Although the **TDOF** computer program was developed for, and employed in, Aerospace Nuclear Safety Program studies pertaining to issues involving launch and reentry of space vehicles containing radioactive material (i.e., see [2],[3]), it is solely used herein to generate ballistic trajectories of notional ejecta material from an hypothesized cosmic body impacting Saginaw Bay, Michigan [4],[5].
 
-The primary motivation to hand code the **TDOF** program from the code listing in Appendix I of reference [1], incorporate necessary changes to make it operational and add functional features was to provide a means to generate ballistic trajectories for comparitive verification of another independently developed ballistic trajectory simulation - **btsim**. This effort was conducted in several incremental steps to arrive at **traj3D1**.
+The primary motivation to hand code the **TDOF** program from the code listing in Appendix I of reference [1], incorporate necessary changes to make it operational and add functional features was to provide a means to generate ballistic trajectories for comparative verification of another independently developed ballistic trajectory simulation - **btsim**. This effort was conducted in several incremental steps to arrive at **traj3D1**.
 
 1. Hand code TDOF.f while maintaining line by line statement syntax match with Appendix I card deck listing.
 2. Incorporate changes to make TDOF.f operational, such as comment non-functional PUNCH statements, add missing PIF11 function, and add geodesy data output file OPEN and formatted WRITE statements.

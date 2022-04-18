@@ -99,7 +99,7 @@ The TDOF computer program and analytic work by L. L. Perini, A. McRonald and man
 
 The following is an e-mail submitted to Johns Hopkins, Applied Physics Lab (APL) over a year ago without receiving a reply.
 
->I'm seeking permission to upload to GITHUB, with appropriate legal, copyright and disclaimer notices, the Fortran source code and sample input deck presented in Appendix I and II of "Users Manual for the 3DOF Trajectory Computer Program" by L. L. Perini available at the following link:
+>I'm seeking permission to upload to GitHub, with appropriate legal, copyright and disclaimer notices, the Fortran source code and sample input deck presented in Appendix I and II of "Users Manual for the 3DOF Trajectory Computer Program" by L. L. Perini available at the following link:
 >
 >[https://www.osti.gov/biblio/4290244](https://www.osti.gov/biblio/4290244)
 >

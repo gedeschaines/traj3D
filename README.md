@@ -1,8 +1,23 @@
+<<<<<<< HEAD
+# traj3D #
+
+____________
+
+<p align="center">
+ <img src="./doc/traj3D1BallisticTrajectories.png" width="830" height="570" alt="traj3D1 generated ballistic trajectories displayed in Google Earth Pro"/>
+</p>
+
+A set of Fortran programs derived from the three-degree of freedom (3DOF) reentry trajectory computer code **TDOF** documented in "Users Manual for the 3DOF Trajectory Computer Program" presented as reference [1].
+
+## Overview ##
+
+=======
 ## traj3D ##
 ____________
 A set of Fortran programs derived from the three-degree of freedom (3DOF) reentry trajectory computer code **TDOF** documented in "Users Manual for the 3DOF Trajectory Computer Program" presented as reference [1].
 
 ### Overview ###
+>>>>>>> e53b487fdc4e9147fdb8649b4cebddb4e13f850c
 Although the **TDOF** computer program was developed for, and employed in, Aerospace Nuclear Safety Program studies pertaining to issues involving launch and reentry of space vehicles containing radioactive material (i.e., see [2],[3]), it is solely used herein to generate ballistic trajectories of notional ejecta material from an hypothesized cosmic body impacting Saginaw Bay, Michigan [4],[5].
 
 The primary motivation to hand code the **TDOF** program from the code listing in Appendix I of reference [1], incorporate necessary changes to make it operational and add functional features was to provide a means to generate ballistic trajectories for comparitive validation of another independently developed ballistic trajectory simulation - **btsim**. This effort was conducted in several incremental steps to arrive at **traj3D1**.
@@ -12,7 +27,12 @@ The primary motivation to hand code the **TDOF** program from the code listing i
 3. Copy TDOF.f to traj3D0.f and add functional features, such as calculation and output of geodetic geodesy data, while maintaining basic operational equivalence to **TDOF**.
 4. Copy traj3D0.f to traj3D1.f and add functional features, such as inertial or observed trajectory geodesy data output and ground range calculation using geodesic survey methods, while maintaining basic operational equivalence to **traj3D0**.
 
+<<<<<<< HEAD
+## Repository Structure ##
+
+=======
 ### Repository Structure ###
+>>>>>>> e53b487fdc4e9147fdb8649b4cebddb4e13f850c
 The repository main directory contains this README file, plain text disclaimer files and the following script files:
 
 + **Exec_TDOF** - Bash script to execute ./bin/TDOF.exe with a named namelist input file
@@ -29,32 +49,64 @@ The contents of each subdirectory are as follows:
 + out - Standard output files written by 3DOF trajectory program execution
 + txt - 3DOF trajectory program namelist input text files
 
+<<<<<<< HEAD
+## Execution Prerequisites ##
+
+=======
 ### Execution Prerequisites ###
+>>>>>>> e53b487fdc4e9147fdb8649b4cebddb4e13f850c
 The development of traj3D has been conducted on Ubuntu Linux platforms and as such, associated scripts are *nix based. Windows platform users should consider installing WSL2, MSYS2/MinGW or Cygwin to obtain GNU Fortran compiler/library suite, Python 3 release and NumPy package.
 
 1. Fortran compiler to create executables from 3DOF trajectory program source code.
 2. Python 3 interpreter and NumPy package to execute **create_traj_kml.py**
 
+<<<<<<< HEAD
+## Execution Overview ##
+
+=======
 ### Execution Overview ###
+>>>>>>> e53b487fdc4e9147fdb8649b4cebddb4e13f850c
 To execute **TDOF** using provided ./txt/sample.txt namelist input file, enter the following command
 
   ./Exec_TDOF sample
 
+<<<<<<< HEAD
+from within the ./traj3D directory. During program exectution standard output will be written to ./out/TDOF_sample.out and trajectory geocentric geodesy data (longitude, latitude, altitude) will be written to ./dat/TDOF_geoc_sample.dat. Since geocentric coordinates cannot be used to accurately display paths and trajectories in Google Earth, the **traj3D** programs must be utilized if this capability is desired.
+
+### Basic Ballistic Trajectory Simulation ###
+
+=======
 from within the ./traj3D directory. During program exectution standard output will be written to ./out/TDOF_sample.out and trajectory geocentric geodesy data (longitude, latitude, altitude) will be written to ./dat/TDOF_geoc_sample.dat.
 Since geocentric coordinates cannot be used to accurately display paths and trajectories in Google Earth, the **traj3D** programs must be utilized if this capability is desired.
 
 #### Basic Ballistic Trajectory Simulation ####
+>>>>>>> e53b487fdc4e9147fdb8649b4cebddb4e13f850c
 1. Select and modify an appropriate namelist file using preferred text editor, then save
    as a uniquely named namelist text file of the form ./txt/{name}.txt.
 2. Invoke **Exec_traj3D** to run a ballistic trajectory simulation with the named namelist fle.
 3. Examine ./out/traj3D[0|1]_{name}.out file for simulation results.
 4. Utilize ./dat/traj3D[0|1]_{name}.dat file for trajectory presentation and/or analysis.
 
+<<<<<<< HEAD
+### Optional Ballistic Trajectory Presentation in Google Earth ###
+
+=======
 #### Optional Ballistic Trajectory Presentation in Google Earth ####
+>>>>>>> e53b487fdc4e9147fdb8649b4cebddb4e13f850c
 1. Create a traj_folder_desc_{name}.kml file corresponding to namelist filename.
 2. Invoke **create_traj_kml.py** to generate trajectory KML file.
 3. In Google Earth add the trajectory KML file as a Network Link.
 
+<<<<<<< HEAD
+## Caveats ##
+
+1. Impacts of **TDOF** modifications on validity of ablation heating and skip trajectories have not been evaluated.
+2. The capability of **TDOF** to execute multiple cases from a single namelist input file is not applicable when generating ballistic trajectories for subsequent display in Google Earth.
+3. Dimensions and mass of an ejecta object are limited by aerodynamic and thermodynamic formulations and the precision of I/O data field formats. The TDOF program was designed to model rocket payloads, not arbitrarily large bodies such as ice or rock boulders.
+
+## References ##
+
+=======
 ### Caveats ###
 1. Impacts of **TDOF** modifications on validity of ablation heating and skip trajectories have not been evaluated.
 2. The capability of **TDOF** to execute multiple cases from a single namelist input file
@@ -62,6 +114,7 @@ is not applicable when generating ballistic trajectories for subsequent display 
 3. Dimensions and mass of an ejecta object are limited by the precision of output format data fields. 
 
 ### References ###
+>>>>>>> e53b487fdc4e9147fdb8649b4cebddb4e13f850c
 \[1] Perini, L. L., "Users Manual for the 3DOF Trajectory Computer Program", JHU/APL ANSP-M-6, John Hopkins University/Applied Physics Laboratory, Sept. 1973. Web. doi:10.2172/4290244. [Web available at OSTI.gov](https://www.osti.gov/biblio/4290244)
 
 \[2] Hagan, J. C., "Reentry response of the light weight radioisotope heater unit resulting from a Venus-Earth-Earth Gravity Assist maneuver accident". United States: N. p., 1988. Web. doi:10.2172/6520642. [Web available at OSTI.gov](https://www.osti.gov/biblio/6520642)
@@ -72,6 +125,13 @@ is not applicable when generating ballistic trajectories for subsequent display 
 
 \[5] Zemora, Antonio, "The Neglected Carolina Bays: Ubiquitous Geological Evidence of a Cataclysm", 2020. [Kindle edition available on Amazon.com](https://www.amazon.com/Neglected-Carolina-Bays-Ubiquitous-Geological-ebook/dp/B08GC8SG8G/ref=sr_1_1?dchild=1&keywords=The+Neglected+Carolina+Bays%3A+Ubiquitous+Geological+Evidence+of+a+Cataclysm+Kindle+Edition&qid=1601067781&s=digital-text&sr=1-1)
 
+<<<<<<< HEAD
+## Disclaimers ##
+
++ See the file [DISCLAIMER-APL](./DISCLAIMER-APL)
++ See the file [DISCLAIMER-GED](./DISCLAIMER-GED)
+=======
 ### Disclaimers ###
 * See the file [DISCLAIMER-APL](./DISCLAIMER-APL)
 * See the file [DISCLAIMER-GED](./DISCLAIMER-GED)
+>>>>>>> e53b487fdc4e9147fdb8649b4cebddb4e13f850c

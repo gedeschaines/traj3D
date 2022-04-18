@@ -1,0 +1,105 @@
+#!/bin/bash
+
+#FILE:  Exec_traj3D
+#DATE:  16 SEP 2020
+#AUTH:  G. E. Deschaines
+#DESC:  Execute ./bin/traj3D[0|1].exe with specified namelist file.
+
+function remove_geo_symlink() {
+  ver=$1
+  geo=$2
+  if [ -h ./traj3D${ver}_${geo}.dat ]
+  then
+    rm -f ./traj3D${ver}_${geo}.dat
+  fi
+}
+
+function remove_grav_symlink() {
+  ver=$1
+  if [ -h ./traj3D${ver}_grav.dat ]
+  then
+    rm -f ./traj3D${ver}_grav.dat
+  fi
+}
+
+# Check command line parameters
+if [ $# -lt 2 ] || [ $1 -lt 0 ] || [ $1 -gt 1 ]
+then
+  echo "usage:  Exec_traj3D [0|1] name"
+  echo "where:  [0|1]- traj3D executable version."
+  echo "        name - name of input namelist .txt file."
+  exit -1
+fi
+vers=$1
+name=$2
+
+# Check if traj3D version executable exists.
+if [ ! -e ./bin/traj3D${vers}.exe ]
+then
+  echo "error:  executable ./bin/traj3D${vers}.exe does not exist."
+  echo "        Create in ./bin subdirectory with gfortran"
+  echo "        as shown in following command expression."
+  echo " "
+  echo "        gfortran -o ./bin/traj3D${vers}.exe ./src/traj3D${vers}.f"
+  exit -2
+fi
+
+# Check if input namelist file exists.
+ifile="./txt/${name}.txt"
+if [ ! -e ${ifile} ]
+then
+  echo "error:  namelist file ${ifile} does not exist."
+  exit -2
+fi
+
+# Assemble standard output, geodesy & gravity output data filenames.
+
+ofile="./out/traj3D${vers}_${name}.out"
+dfile="./dat/traj3D${vers}_geod_${name}.dat"
+cfile="./dat/traj3D${vers}_geoc_${name}.dat"
+gfile="./dat/traj3D${vers}_grav_${name}.dat"
+
+# Remove previous symbolic links ./traj3D#_geo[d|c].dat (if they 
+# exist) and create symbolic link to specified geodetic and 
+# geocentric output data files as ./traj3D${vers}_geo[d|c].dat.
+
+if [ ! -e ${dfile} ]
+then
+  touch ${dfile}
+fi
+remove_geo_symlink ${vers} geod
+ln -s ${dfile} ./traj3D${vers}_geod.dat
+
+if [ ! -e ${cfile} ]
+then
+  touch ${cfile}
+fi
+remove_geo_symlink ${vers} geoc
+ln -s ${cfile} ./traj3D${vers}_geoc.dat
+
+# Remove previous symbolic link ./traj3D#_grav.dat (if it 
+# exists) and create symbolic link to specified gravity 
+# output data file as ./traj3D${vers}_grav.dat.
+
+if [ ! -e ${gfile} ]
+then
+  touch ${gfile}
+fi
+remove_grav_symlink ${vers}
+ln -s ${gfile} ./traj3D${vers}_grav.dat
+
+# Initiate execution of traj3D.
+./bin/traj3D${vers}.exe <${ifile} >${ofile}
+
+echo "Standard output written to ${ofile}"
+echo "Geodetic output data written to ${dfile}"
+echo "Geocentric output data written to ${cfile}"
+echo "Gravity output data written to ${gfile}"
+
+# Remove symbolic links.
+remove_geo_symlink ${vers} geod
+remove_geo_symlink ${vers} geoc
+remove_grav_symlink ${vers}
+
+exit 0
+

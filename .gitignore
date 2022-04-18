@@ -1,0 +1,10 @@
+.vscode/
+bin/
+ref/
+dat/traj3D?_geoc_*.dat
+dat/traj3D?_grav_*.dat
+**/tmp
+.code-workspace
+.o
+.exe
+*\~

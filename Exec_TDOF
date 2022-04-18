@@ -1,0 +1,69 @@
+#!/bin/bash
+
+#FILE:  Exec_TDOF
+#DATE:  16 SEP 2020
+#AUTH:  G. E. Deschaines
+#DESC:  Execute ./bin/TDOF.exe with specified namelist file.
+
+function remove_geoc_symlink() {
+  if [ -h ./TDOF_geoc.dat ]
+  then
+    rm -f ./TDOF_geoc.dat
+  fi
+}
+
+# Check command line parameter
+if [ $# -lt 1 ]
+then
+  echo "usage:  Exec_TDOF name"
+  echo "where:  name - name of input namelist .txt file."
+  exit -1
+fi
+name=$1
+
+# Check if TDOF executable exists.
+if [ ! -e ./bin/TDOF.exe ]
+then
+  echo "error:  executable ./bin/TDOF.exe does not exist."
+  echo "        Create in ./bin subdirectory with gfortran"
+  echo "        as shown in following command expression."
+  echo " "
+  echo "        gfortran -o ./bin/TDOF.exe ./src/TDOF.f"
+  exit -2
+fi
+
+# Check if input namelist file exists.
+ifile="./txt/${name}.txt"
+if [ ! -e ${ifile} ]
+then
+  echo "error:  namelist file ${ifile} does not exist."
+  exit -2
+fi
+
+# Assemble standard output & geodesy data filenames.
+
+ofile="./out/TDOF_${name}.out"
+dfile="./dat/TDOF_geoc_${name}.dat"
+
+# Remove previous symbolic link ./TDOF_geoc.dat (if it 
+# exists) and create symbolic link to specified geodesy 
+# data file as ./TDOF_geoc.dat.
+
+if [ ! -e ${dfile} ]
+then
+  touch ${dfile}
+fi
+remove_geoc_symlink
+ln -s ${dfile} ./TDOF_geoc.dat
+
+# Initiate execution of TDOF.
+./bin/TDOF.exe <${ifile} >${ofile}
+
+echo "Standard output written to ${ofile}"
+echo "Geodesy output data written to ${dfile}"
+
+# Remove symbolic link.
+remove_geoc_symlink
+
+exit 0
+

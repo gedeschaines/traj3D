@@ -1,0 +1,979 @@
+C***********************************************************************
+      BLOCK DATA
+      DOUBLE PRECISION Y
+      COMMON /ATMOT/ Z(22),TMB(22) ,R(21), PB(22),C1,C2,C3,
+     1         C7,C8,ZM,RO,GM,GAM,RST,GO,PO,WO,GO1
+      COMMON/RADI/TQR(12,8),TALR(8),TVER(12),LTV,LTZ
+      COMMON/FLOT/X(71)
+      COMMON/FIXED/I(22)
+      COMMON/DPRES/Y(14)
+      COMMON/TBLS/W(1085)
+C      24000   26000  28000  30000   32000   34000   36000    38000
+C      40000   42000  44000  46000
+      DATA       TQR/
+     1  1000.0,2300.0,5176.0,11611.0,26249.0,52807.0,86000.0,160000.0,
+     & 260000.,340000.0,440000.0,525000.0,
+     2   160. , 335.0, 761.0, 1877.0, 5676.0,14794.0,27609.0, 50000.0,
+     &  74000.,100000.0,130000.0,160000.0,
+     3     2.2,   5.5,  14.2,   43.4,  219.1,  792.3, 1780.0,  3261.0,
+     &   5389.,  7772.0, 10533.0, 13564.0,
+     4    .05 ,  .150,  .453,   1.71,   12.1,   58.6,  154.0,   276.0,
+     &    448.,   675.0,   954.0,  1276.0,
+     5   .004 ,  .020,  .078,   .323,   2.66,   14.3,   33.9,    62.6,
+     &    107.,   169.0,   245.0,   335.0,
+     6  .0004 ,  .002,  .010,   .047,    .44,    2.5,    5.1,    10.0,
+     &     18.,    29.4,    43.7,    60.2,
+     7  .00004, .0002,.00088,  .0043,   .046,   .195,   .432,    .903,
+     &    1.70,    2.86,    4.32,    6.02,
+     8 .000008,.00004,.00020,  .0009,   .011,   .028,   .068,    .154,
+     &   .314 ,    .563,    .907,   1.353 /
+      DATA     TALR   /75000.0,100000.0,150000.0,200000.0,225000.0,
+     1                  250000.0 , 275000.0, 300000.0  /
+     2         ,TVER /24000.0,26000.0,28000.0,30000.0,32000.0,34000.0,
+     3                36000.0,38000.0,40000.0,42000.0,44000.0,46000.0/
+     4         ,LTV/12/,LTZ/8/
+     5,X/71*0.0/,I/22*0/,Y/14*0.0/,W/1085*0.0/
+      DATA    Z/      0., 11019., 20063., 32162., 47350., 52429.,
+     1    61591., 79994., 90000.,100000.,110000.,120000.,150000.,
+     2   160000.,170000.,190000.,230000.,300000.,400000.,500000.,
+     3   600000.,700000. /
+     4     ,TMB/  288.15, 216.65, 216.65, 228.65, 270.65, 270.65,
+     5    252.65, 180.65, 180.65, 210.65, 260.65, 360.65, 960.65,
+     6   1110.65,1210.65,1350.65,1550.65,1830.65,2160.65,2420.65,
+     7   2590.65,2700.65  /
+      DATA   R /  -6.5, 0.0, 1.0, 2.8, 0.0,-2.0,-4.0, 0.0, 3.0, 5.0,
+     1       10.0,20.0,15.0,10.0, 7.0, 5.0, 4.0, 3.3, 2.6, 1.7, 1.1 /
+      DATA   PB/ 1.00000E+00,2.23361E-01,5.40328E-02,8.56663E-03,
+     1 1.09455E-03,5.82289E-04,1.79718E-04,1.02410E-05,1.62230E-06,
+     2 2.96810E-07,7.25820E-08,2.48870E-08,4.99550E-09,3.64600E-09,
+     3 2.75610E-09,1.66320E-09,6.86940E-10,1.85920E-10,3.97770E-11,
+     4 1.08140E-11,3.40513E-12,1.17620E-12 /,C8/3.28084514/
+     5  ,C1/0.3048/,C2/1.00E+03/,C3/1.8/,GO1/32.174/,C7/1.00E-08/
+     6  ,ZM/9.00E+05/,RO/6.375605E+06/,GM/3.9862216E+14/,GAM/1.4/
+     7  ,RST/8.31432/,GO/9.80665/,PO/2.11622E+03/,WO/28.9644/
+      END
+C***********************************************************************
+C     MAIN PROGRAM
+C                  3D POINT MASS TRAJECTORY PROGRAM      KGN JULY 69
+C              MODIFIED FOR AEC SAFETY ANALYSIS LLP 1972
+C
+      COMMON/DPRES/RE,H(5),AZR,GAMR,WE,T,GR,AD,AL,AY
+      COMMON/FLOT /THETO,PHIO,THETAX,PHIX,GO,MASS,RAD,RHO,WTMULT,
+     1 TOLD,VAIR,MACH,QBAR,REY,CD,CA,HJACK,VSOUND,TEMP,WO,SREF,
+     2 TFIL,WFIL,CAFIL,SKINFR,DWT,     QC,QR,QDC,QDR,AZO,TO,
+     3 PRS,MOLW,CASE(17),QDFM,QFM,CDC,CDFM,RNOSE,ED,HOUT,GAMI,VI,
+     4 AZI,XLAT,XLONG,DIFMD   ,RANGE,RANGEO,HTS,RLD,RECS,DREF,RYD
+      COMMON/FIXED/I,NWT,NALT,NVEL,JACK,NMACH,LNKT1,KOUT,NHCHEK,
+     1  NOUT,KJACK,IAERO,NCD,NMAC,ISWH,IOUT,IPASS,NPASS,IPUNCH,JDATE(3)
+      COMMON/TBLS/ DLWT(100),WALT(100),CATBL(100),ALTTBL(25),
+     1   CASFTB(25,10),TBLMAC(100),VELTBL(10),CDTBL(100),ALTBL(100),
+     2  CDMTBL(100),TBLMA(100)
+      COMMON/RADI/TQR(12,8),TALR(8),TVER(12),LTV,LTZ
+      NAMELIST/INPUT/      HO    ,VI    ,GAMI  ,TO    ,HCO   ,XLAT  ,
+     1       XLONG ,AZREL ,WO    ,SREF  ,DREF  ,IAERO ,NOUT  ,LKASE ,
+     2              ROTOPT,TFIL  ,WFIL  ,CAFIL        ,SKINFR,
+     3 DWT ,CDC ,CDFM, RNOSE, ED,
+     4       VREL  ,GAMREL , IRI  ,SWMCH , AZI ,HOUT ,IOBL ,NPASS,
+     5         DTMAX, DTMIN,JAERO,RANGEO,IPUNCH, SWALT,FACTOR,RHOG,
+     6 NPOUT,RLD1,RLD2,RYD1,RYD2
+      DOUBLE PRECISION RE,H,AZR,GAMR,WE,T,GR,GT,VR(5),VTH(5),VPH(5),
+     1 VRD(5),VTHD(5),VPHD(5),XL,DT2,DT,THETA(5),PHI(5),HO,XMU,EPS,
+     2 REQ,RPO,RROP,HREX(5),R(5),HRE,AD,AL,AY  ,WEC,WES,COSG,SING
+      REAL MACH,MASS,MRAT,MOLW
+      DO 128 J = 1,LTZ
+      DO 128 I = 1,LTV
+  128 TQR(I,J) = ALOG(TQR(I,J))
+      NKASE=1
+      CALL IDATE(JDATE)
+C   INITILAZE NAMELIST VARIABLES
+      RLD1=0.0
+      RLD2=0.0
+      RYD1=0.0
+      RYD2=0.0
+      HO = 400000.0
+      VI = 25711.6
+      HCO = 115.0
+      AZREL = 0.0
+      WO = 1.0
+      SREF = 1.0
+      DREF = 1.0
+      IAERO = -1
+      NOUT = 10
+      LKASE = 1
+      ROTOPT = 0.0
+      CDC = 1.5
+      CDFM = 2.0
+      VREL = VI
+      GAMREL = GAMI
+      IRI = 0
+      SWALT = 0.0
+      SWMCH = 0.0
+      AZI = AZREL
+      HOUT = 450000.0
+      IOBL = 0
+      RNOSE = 0.50
+      DTMAX = 1.0
+      DTMIN = 0.01
+      JAERO = 1
+      FACTOR = 1.26
+      RHOG = 1.75
+      NPOUT = 1
+      OPEN(UNIT=7,FILE="TDOF_geoc.dat",FORM="FORMATTED")      
+C                           INITIALIZE VALUES
+   10 JACK=1
+      KJACK=1
+      I=5
+      IPOUT = 0
+      NHCHEK = 1
+      RAD = 57.29578
+      RE = 20898908.0
+      GO = 32.174
+      XMU = 1.40762913E+16
+      EPS = 7.148788887E+11
+      REQ = 20.92554E+6
+      RPO = 20.855107E+6
+      RROP = (REQ/RPO)**2 - 1.0
+      WE = 0.0
+      MACH = 0.0
+      ISWH = 0
+      QC = 0.0
+      QR = 0.0
+      QFM = 0.0
+      RECS = 0.0
+      DIFMDL = 0.0
+      QDFM = 0.0
+      QDC = 0.0
+      QDR = 0.0
+      IOUT = 0
+      HJACK = 0.0
+      WTMULT = 1.0
+      LNKT1 = 50
+      IPASS = 0
+C                           READ TITLE CARD
+      READ(5,425) CASE
+      READ(5,INPUT)
+      RLD = RLD1
+      RYD = RYD1
+      HCOX = HCO
+      KOUT = NOUT
+C   IF JAERO = 0 USE LAST AERO TABLE
+      IF (JAERO.EQ.0) GO TO 53
+      WRITE(6,450) CASE, JDATE
+      WRITE(6,485)
+C   IF IAERO = 0 USE BRIDGING EQUATION IN CALC
+      IF (IAERO) 51,50,45
+C   AERO TABLE CA = F(ALT)    IAERO = -1
+   51 READ(5,435) NCD
+      READ(5,440) (ALTBL(L) , L=1,NCD)
+      READ(5,440) (CDTBL(L) , L=1,NCD)
+      WRITE(6,40)
+      WRITE(6,41) (CDTBL(L),ALTBL(L),L=1,NCD)
+      GO TO 50
+C   AERO TABLE CS = F(MACH)   IAERO = +1
+   45 READ(5,435) NMACH
+      READ(5,440) (TBLMAC(L) , L=1,NMACH)
+      READ(5,440) (CATBL(L)  , L=1,NMACH)
+      WRITE(6,46) NMACH
+      WRITE(6,47) (TBLMAC(L) , L=1,NMACH)
+      WRITE(6,47) (CATBL(L)  , L=1,NMACH)
+C   LOW MACH NO AERO TABLE  CA = F(MACH)  SWMCH >= 0.0 OR SWALT >= 0.0
+   50 IF ((SWMCH.LE.0.0).AND.(SWALT.LE.0.0)) GO TO 53
+      READ(5,435) NMAC
+      READ(5,440) (TBLMA(L)  , L=1,NMAC)
+      READ(5,440) (CDMTBL(L) , L=1,NMAC)
+      WRITE(6,491) SWMCH, SWALT
+      WRITE(6,41) (CDMTBL(L),TBLMA(L),L=1,NMAC)
+C   SKIN FRICTION - F(H,V)
+   53 IF (SKINFR.LE.0.0) GO TO 110
+      READ(5,435) NALT,NVEL
+      READ(5,440) (ALTTBL(K),K=1,NALT)
+      READ(5,440) (VELTBL(J),J=1,NVEL)
+      READ(5,440) ((CASFTB(K,J),K=1,NALT),J=1,NVEL)
+      WRITE(6,46) NALT,NVEL
+      WRITE(6,56) (ALTTBL(K),K=1,NALT)
+      WRITE(6,56) (VELTBL(J),J=1,NVEL)
+      DO 57 J=1,NVEL
+   57 WRITE(6,58) (CASFTB(K,J),K=1,NALT)
+C    WEIGHT LOSS - ALTITUDE
+  110 IF (DWT.LE.0.0) GO TO 240
+      READ(5,435) NWT
+      READ(5,440) (WALT(I),I=1,NWT)
+      READ(5,440) (DLWT(I),I=1,NWT)
+      WRITE(6,120)
+      WRITE(6,125)
+      WRITE(6,495) (WALT(I),I=1,NWT)
+      WRITE(6,130)
+      WRITE(6,490) (DLWT(I),I=1,NWT)
+C                             ROTATING EARTH OPTION
+  240 I = 5
+      RECSL = RECS
+      QDFMLS = QDFM
+      QDCLS = QDC
+      QDRLS = QDR
+      IF (ROTOPT.NE.0.0) WE = 0.7292115E-4
+      IF (IOBL.EQ.0) GO TO 603
+      RE = REQ/(DSQRT(1.0+RROP*SIN(XLAT/RAD)**2))
+      HRE = HO + RE
+      GR = XMU*(1.0 + EPS*(1.0 - 3.0*SIN(XLAT/RAD)**2)/HRE**2)/HRE**2
+      GO TO 604
+  603 HRE = HO + RE
+      GR = GO*(RE/HRE)**2
+  604 VCIRC = DSQRT(GR*HRE)
+      IF (IRI.EQ.0) GO TO 43
+      VO = VREL
+      GAMO = GAMREL
+      AZO = AZREL
+      XL = XLAT/RAD
+      C1 = HRE*WE*DCOS(XL)/VREL
+      VI = VREL*SQRT(1.0+C1**2+2.0*COS(GAMREL/RAD)*SIN(AZREL/RAD)*C1)
+      GAMI = ASIN(VREL*SIN(GAMREL/RAD)/VI)*RAD
+      C2 = DCOS(AZR/RAD)
+      C3 = 1.0E12
+      IF (ABS(AZREL-90.0).GE.0.0001) C3=TAN(AZREL/RAD)
+      AZI = ATAN(C3 + C1/COS(GAMREL/RAD)/C2)*RAD
+      GO TO 44
+   43 C1 = HRE*WE*COS(XLAT/RAD)/VI
+      VO = VI*SQRT(1.0 + C1**2 - 2.0*COS(GAMI/RAD)*SIN(AZI/RAD)*C1)
+      GAMO = VI*SIN(GAMI/RAD)/VO
+      GAMO = ASIN(GAMO)*RAD
+      AZO = SIN(AZI/RAD) - C1/COS(GAMI/RAD)
+      AZB = COS(AZI/RAD)
+      AZO = ATAN2(AZO,AZB)*RAD
+   44 IF (IPOUT.EQ.0) GO TO 131
+      IF (IPOUT.NE.1) GO TO 132
+  131 IPOUT = 1
+C   WRITE INITIAL CONDITIONS--------------------
+      WRITE(6,450) CASE, JDATE
+      WRITE(6,475) 
+      IPP1 = IPASS + 1
+      IF (NPASS.GT.0) WRITE(6,476) IPP1
+      WRITE(6,492) VO, VI, GAMO, GAMI, AZO, AZI, TO, WO,
+     & HO, XLAT, XLONG, SREF, DREF, RLD1, RLD2, RYD1, RYD2, FACTOR, RHOG
+      WRITE(6,486)
+      WRITE(6,487) VCIRC
+      IF (IOBL.EQ.1) WRITE(6,493) RPO, REQ
+      IF (IOBL.EQ.0) WRITE(6,494) RE
+      IF (ROTOPT.NE.0.0) WRITE(6,499) WE
+      IF (ROTOPT.EQ.0.0) WRITE(6,496)
+      WRITE(6,497) NOUT, DTMAX, DTMIN, HCO, HOUT
+      IF (IAERO.EQ.0) WRITE(6,498) CDC, ED, CDFM, RNOSE
+      WRITE(6,127)
+C                            VARIABLE SETUP
+  132 GAMR=GAMO/RAD
+      AZR=AZO/RAD
+      MASS=WO/GO
+      THETA(5)=(90-XLAT)/RAD
+      PHI(5)=XLONG/RAD
+      H(5)=HO
+      HREX(5) = HO + RE
+      T=TO
+      TLAST=TO
+      THETO=THETA(5)
+      PHIO=XLONG/RAD
+C                            INITIAL VELOCITY COMPONENTS
+      VR(5)=VO*DSIN(GAMR)
+      VTH(5)=VO*DCOS(GAMR)*DCOS(AZR)
+      VPH(5)=VO*DCOS(GAMR)*DSIN(AZR)
+C                            INTEGRATION LOOP
+      GO TO 265
+  255 DT2=DT
+  260 I=I+1
+      VR(I) = VR(1) + VRD(I-1)*DT2
+      VTH(I) = VTH(1) + VTHD(I-1)*DT2
+      VPH(I) = VPH(1) + VPHD(I-1)*DT2
+      HREX(I) = HREX(1) + VR(I-1)*DT2
+      THETA(I) = THETA(1) - VTH(I-1)*DT2/HREX(I-1)
+      PHI(I) = PHI(1) + VPH(I-1)*DT2/HREX(I-1)/DSIN(THETA(I-1))
+  265 VTOT = DSQRT(VR(I)**2 + VTH(I)**2 + VPH(I)**2)
+      IF (IOBL.EQ.0) GO TO 600
+      XL = 1.5707963 - THETA(I)
+      RE = REQ/DSQRT(1.0 + RROP*DSIN(XL)**2)
+      HRE = HREX(I)
+      IF (NHCHEK.NE.2) H(I) = HRE - RE
+      GR = XMU*(1.0 + EPS*(1.0 - 3.0*DSIN(XL)**2)/HRE**2)/HRE**2
+      GT = 2.0*XMU*EPS*DSIN(XL)*DCOS(XL)/HRE**4
+      GO TO 601
+  600 HRE = HREX(I)
+      H(I) = HRE - RE
+      GR = GO*(RE/HRE)**2
+      GT = 0.0
+  601 CONTINUE
+      VAIR = VTOT
+      GAMR = DATAN(VR(I)/DSQRT(VTH(I)**2 + VPH(I)**2))
+      X1 = VPH(I)
+      X2 = VTH(I)
+      X3 = AZMUTH(X1,X2)
+      AZR = X3
+C  1962 ATMOSPHERIC PROPERTIES
+      HHHH = H(I)
+      CALL ATM(HHHH,PRS,TEMP,MOLW,VSOUND,RHO)
+      CALL CALC
+      IF (NHCHEK.EQ.2) GO TO 320
+C  EQUATIONS OF MOTION IN SPHERICAL COORDINATES
+      WEC = WE*DCOS(THETA(I))
+      WES = WE*DSIN(THETA(I))
+      HRT = HRE*DTAN(THETA(I))
+      COSG = DCOS(GAMR)
+      SING = DSIN(GAMR)
+      VRD(I) = (VTH(I)**2 + VPH(I)**2)/HRE - AD*SING - GR
+     &  + 2.0*VPH(I)*WES + HRE*WES*WES + AL*COSG
+      VTHD(I) = -VPH(I)**2/HRT - AD*COSG*DCOS(AZR) - VR(I)*VTH(I)/HRE
+     & -2.0*VPH(I)*WEC - HRE*WES*WEC - AL*SING*DCOS(AZR) - GT
+     & -AY*DSIN(AZR)
+      VPHD(I) = (VTH(I)*VPH(I))/HRT - VR(I)*VPH(I)/HRE
+     & -AD*COSG*DSIN(AZR) + 2.0*(VTH(I)*WEC - VR(I)*WES)
+     & -AL*SING*DSIN(AZR) + AY*DCOS(AZR)
+      GO TO (260,260,255,270,315),I
+  270 VR(5)=VR(1)+DT*(VRD(1)+2.0*(VRD(2)+VRD(3))+VRD(4))/6.0
+      VTH(5)=VTH(1)+DT*(VTHD(1)+2.0*(VTHD(2)+VTHD(3))+VTHD(4))/6.0
+      VPH(5)=VPH(1)+DT*(VPHD(1)+2.0*(VPHD(2)+VPHD(3))+VPHD(4))/6.0
+      THETA(5)=THETA(1)-DT*(VTH(1)/(HREX(1))+2.0*(VTH(2)/(HREX(2)) +
+     & VTH(3)/(HREX(3)))+VTH(4)/(HREX(4)))/6.0
+      PHI(5)=PHI(1)+DT*(VPH(1)/((HREX(1))*DSIN(THETA(1)))
+     & + 2.0*(VPH(2)/((HREX(2))*DSIN(THETA(2)))+VPH(3)/((HREX(3))*DSIN(
+     & THETA(3))))+VPH(4)/((HREX(4))*DSIN(THETA(4))))/6.0
+      HREX(5)=HREX(1)+DT*(VR(1)+2.0*(VR(2)+VR(3))+VR(4))/6.0
+      IF (IOBL.NE.0) RE=REQ/DSQRT(1.0+RROP*DSIN(1.5707963-THETA(5))**2)
+      H(5) = HREX(5) - RE
+      IF (IOUT.EQ.1) GO TO 272
+      IF (H(5).LT.HOUT) GO TO 271
+      HCO = HOUT
+      IOUT = 1
+  272 DELH = HCO - H(5)
+      GO TO 273
+  271 DELH = H(5) - HCO
+  273 IF (ABS(DELH).LE.5.0) GO TO 285
+      IF (DELH) 280,285,290
+  280 DT = DT*(H(1)-HCO)/(H(1)-H(5))
+      DT2 = DT/2.0
+      HRE = H(1) + RE
+      I = 1
+      GO TO 260
+  285 NHCHEK = 2
+      H(5) = HCO
+      T = T + DT
+      IF (NHCHEK.EQ.2) GO TO 265
+  290 I = 5
+      T = T + DT
+      GO TO 265
+C                          CALCULATION OF TIME STEP
+  315 DTSUB = .01*(VAIR+2000.0)/DSQRT(VRD(I)**2+VTHD(I)**2+VPHD(I)**2)
+      DT = DTSUB
+      IF (DTSUB.GT.DTMAX) DT=DTMAX
+      IF (DTSUB.LT.DTMIN) DT=DTMIN
+      DT2 = DT/2.0
+C                          OUTPUT CALCULATIONS
+C                 ----INTEGRATIONS----
+  320 IF ((H(5).LT.200000.0).AND.(IPOUT.NE.1)) GO TO 137
+      DELT = T - TLAST
+      HHHH = H(5)
+      HTS = VAIR**2/50062.7 + 0.24*(TEMP-536.69)
+C  HEATING RATES FOR A 1-FT SPHERE, COLD WALL ----------
+C RADIATION - TABULAR VALUES FROM MODIFIED CALLIS CODE - 11/3/72-LLP
+C             ONE FOOT SPHERE
+      QDR = 0.0
+      IF (VAIR.LT.24000.0) GO TO 124
+      IF (HHHH.LT.75000.0) GO TO 124
+      QDR = PIF11(VAIR,HHHH,TVER,LTV,TALR,LTZ,TQR,LTV,LTZ)
+      QDR = EXP(QDR)
+  124 IF (MACH.GT.6.0) GO TO 121
+C  SIBULKIN WITH GAMMA = 1.2 , SUPERSONIC & SUBSONIC
+      GAM = 1.2
+      A = 1.0 + (GAM-1.0)*MACH**2/2.0
+      TS = TEMP*A
+      VISS = 9.898E-7*(TS/1.8)**1.5/(110.4 + TS/1.8)
+      P2 = PRS
+      IF (MACH.LE.1.0) GO TO 122
+C  SUPERSONIC FLOW
+      TEMZ = GAM*MACH**2 - (GAM-1.0)/2.0
+      P2 = PRS*2.0*TEMZ/(GAM + 1.0)
+      XM2 = SQRT(A/TEMZ)
+      A  = 1.0 + (GAM-1.0)*XM2**2/2.0
+  122 PS = P2*A**(GAM/(GAM-1.0))
+      RHOS = PS/TS/53.3
+      BETZ = 1.1
+      IF (MACH.LT.4.98)
+     & BETZ = 2.740409 + MACH*(-0.7121196 + MACH*(-0.125607 +
+     &                   MACH*(0.0978086 - MACH*0.01148119)))
+      QDC = 0.945*SQRT(RHOS*VISS*BETZ*VAIR/2.0)*HTS
+      GO TO 123
+C  HYPERSONIC FLOW (DETRA, KEMP & RIDDEL)
+  121 C1 = 17600.0
+      C2 = 3.15
+      QDC = C1 * ((RHO*GO/0.07647)**0.5)*(VAIR/26000.0)**C2
+C  FREE MOLECULAR FLOW
+  123 QDFM = RHO*(VAIR**3)/2.0/778.0
+C  ESTIMATE OF SURFACE RECESSION--DIFFUSION CONTROL
+      QDT = QDC*FACTOR
+      IF (QDT.LE.0.0) GO TO 126
+      IF ((QDFM/QDT).LT.10.0)
+     1 QDT = QDT*(1.0-EXP(-QDFM/QDT))
+      DIFMD = 0.1725*QDT/HTS
+C  ------------------------------------------------
+  126 QR = QR + (QDR + QDRL)*DELT/2.0
+      QC = QC + (QDC + QDCL)*DELT/2.0
+      QFM = QFM + (QDFM + QDFML)*DELT/2.0
+      RECS = RECS + 12.0*(DIFMD + DIFMDL)*DELT/2.0/RHOG
+      TLAST = T
+      QDFML = QDFM
+      QDCL = QDC
+      QDRL = QDR
+      DIFMDL = DIFMD
+      THETAX = THETA(5)
+      PHIX = PHI(5)
+      IF (IPOUT.EQ.1) CALL OUTPT
+      IF (MACH.LT.SWMCH) ISWH = 1
+      IF (MACH.LT.1.0) RLD = RLD2
+      IF (MACH.LT.1.0) RYD=  RYD2
+      IF (H(5).LT.SWALT) ISWH=1
+C                            CONTINUE INTEGRATION LOOP
+      IF (NHCHEK.EQ.2) GO TO 325
+      VR(1) = VR(I)
+      VTH(1) = VTH(I)
+      VPH(1) = VPH(I)
+      H(1) = H(I)
+      THETA(1) = THETA(I)
+      PHI(1) = PHI(I)
+      VRD(1) = VRD(I)
+      VTHD(1) = VTHD(I)
+      VPHD(1) = VPHD(I)
+      HREX(1) = HREX(I)
+      I = 1
+      GO TO 260
+C                             CHECK ON CASE NUMBER
+  137 IPOUT = 1
+      RECS = RECSL
+      QDFM = QDFMLS
+      QDC = QDCLS
+      QDR = QDRLS
+      GO TO 136
+  325 IF (IOUT.EQ.0) GO TO 611
+      CALL KEPLR
+      IF (IPASS.GE.NPASS) GO TO 611
+  136 IOUT = 0
+      I = 5
+      NHCHEK = 1
+      HCO = HCOX
+      LNKT1 = 50
+      KOUT = NOUT
+      GO TO 240
+  611 NKASE = NKASE + 1
+      IF (NKASE.LE.LKASE) GO TO 10
+      CLOSE(7)  
+      STOP
+C                            READ FORMATS
+   40 FORMAT(   8X,17HINPUT AERO TABLE / 5X,2HCD,8X,12HALTITUDE(FT))
+   41 FORMAT(F10.6,F14.2)
+   46 FORMAT(1X,2I10)
+   47 FORMAT(16F8.3)
+   56 FORMAT(1X,15F8.0)
+   58 FORMAT(1X,15F8.4)
+  120 FORMAT(/,30X,11HWEIGHT LOSS,/)
+  125 FORMAT(30X,8HALTITUDE)
+  130 FORMAT(30X,13HWT-MULTIPLIER)
+  425 FORMAT(20A4)
+  435 FORMAT(2I3)
+  440 FORMAT(6G12.8)
+  450 FORMAT(1H1,17A4,1X,I2  ,1H/,I2  ,1H/,I4  )
+  475 FORMAT(12X,16HINPUT VARIABLES   ,//)
+  476 FORMAT(5X,13HSTART OF SKIP ,  I5)
+  485 FORMAT(22X,23H**** OPTION TABLES ****,/)
+  486 FORMAT(15X, 24H1962 STANDARD ATMOSPHERE   )
+  487 FORMAT(15X, 24HCIRCULAR VELOCITY(FPS) =   , F12.2   )
+  490 FORMAT(1X,6F13.4)
+  491 FORMAT(   8X,20HLOW MACH NO. TABLE  /
+     1       17H SWITCH WHEN M < , F6.2,21H  OR WHEN ALTITUDE <  ,
+     2 F8.1   / 5X,2HCD, 8X, 5HMACH )
+  492 FORMAT( 2X, 18HINITIAL CONDITIONS /25X,8HRELATIVE,6X,8HINERTIAL /
+     1 6X,17HVELOCITY(FPS)    ,  F13.2 , F13.2 /
+     2 6X,17HFLIGHT PATH(DEG) ,  F13.4 , F13.4 /
+     3 6X,17HAZIMUTH(DEG)     ,  F13.4 , F13.4 /
+     4 6X,17HTIME(SEC)        ,  F13.2         /
+     5 6X,17HWEIGHT(LBS)      ,  F13.2         /
+     6 6X,17HALTITUDE(FT)     ,  F13.2         /
+     7 6X,17HLATITUDE(DEG)    ,  F13.2         /
+     8 6X,17HLONGITUDE(DEG)   ,  F13.2         /
+     9 6X,17HREF AREA(FT**2)  ,  F13.5         /
+     1 6X,17HREF LENGTH(FT)   ,  F13.2   /
+     2 6X,17HL/D SUPERSONIC   ,  F13.4   /
+     3 6X,17HL/D SUBSONIC     ,  F13.4   /
+     4 6X,17HY/D SUPERSONIC   ,  F13.4   /
+     5 6X,17HY/D SUBSONIC     ,  F13.4   /
+     6 6X,17HQ STAG. FACTOR   ,  F13.4   /
+     7 6X,17HGRAP. DENS(PCF)  ,  F13.4   )
+  493 FORMAT(15X, 49HOBLATE EARTH MODEL ,POLAR & EQUATORIAL RADII(FT)= ,
+     1  /30X, 2E15.8 )
+  494 FORMAT(15X, 31HSPHERICAL EARTH MODEL,RE(FT) = , E15.8 )
+  495 FORMAT(1X,6F13.0)
+  496 FORMAT(15X, 16HSTATIONARY EARTH  )
+  497 FORMAT(15X, 11HPRINT EVERY,I4  ,11H TIME STEP /
+     1       15X, 15HMAX TIME STEP =, F8.4,17H  MIN TIME STEP =,F8.4/
+     2       15X, 17HCUTOFF ALT(FT) =  ,F8.1, 4H OR , F10.1    )
+  498 FORMAT( 7X, 35HCONSTANTS IN DRAG BRIDGING EQUATION    /
+     1  12X,14HCD(CONTINUM) =,F10.4,10H   ED    =  , F10.5  /
+     2  12X,14HCD(FREE MOL) =,F10.4,10H   RNOSE = , F10.5  )
+  499 FORMAT(15X, 31HROTATING EARTH , WE(RAD/SEC) = , E15.8 )
+  127 FORMAT(15X,32HRADIATIVE FLUX-MODIFIED CALLIS     )
+      END
+C***********************************************************************
+      SUBROUTINE CALC
+C
+C
+      COMMON/DPRES/RE,H(5),AZR,GAMR,WE,T,GR,AD,AL,AY
+      COMMON/FLOT /THETO,PHIO,THETAX,PHIX,GO,MASS,RAD,RHO,WTMULT,
+     1 TOLD,VAIR,MACH,QBAR,REY,CD,CA,HJACK,VSOUND,TEMP,WO,SREF,
+     2 TFIL,WFIL,CAFIL,SKINFR,DWT,     QC,QR,QDC,QDR,AZO,TO,
+     3 PRS,MOLW,CASE(17),QDFM,QFM,CDC,CDFM,RNOSE,ED,HOUT,GAMI,VI,
+     4 AZI,XLAT,XLONG,DIFMD   ,RANGE,RANGEO,HTS,RLD,RECS,DREF,RYD
+      COMMON/FIXED/I,NWT,NALT,NVEL,JACK,NMACH,LNKT1,KOUT,NHCHEK,
+     1  NOUT,KJACK,IAERO,NCD,NMAC,ISWH,IOUT,IPASS,NPASS,IPUNCH,JDATE(3)
+      COMMON/TBLS/ DLWT(100),WALT(100),CATBL(100),ALTTBL(25),
+     1   CASFTB(25,10),TBLMAC(100),VELTBL(10),CDTBL(100),ALTBL(100),
+     2  CDMTBL(100),TBLMA(100)
+      DOUBLE PRECISION RE,H,AZR,GAMR,WE,T,GR,AD,AL,AY
+      REAL MACH,MASS,MRAT,MOLW
+      MACH = VAIR/VSOUND
+      HHHH = H(I)
+C                            AERO TABLES CA
+      IF (IAERO.LT.0) GO TO 91
+      IF (IAERO.EQ.0) GO TO 92
+      CA = PIF1(MACH,TBLMAC,NMACH,CATBL)
+      GO TO 90
+C                         DRAG COEFFICIENT = F(ALT)
+   91 IF (ISWH.EQ.1) GO TO 93
+      CA = PIF1(HHHH,ALTBL,NCD,CDTBL)
+      GO TO 90
+C                       DRAG COEFFICIENT WITH BRIDGING
+   92 IF (ISWH.EQ.1) GO TO 93
+      B = (CDFM-CDC)/CDC
+      C = (7.32E+6)*RNOSE*RHO*GO*(1.0 + ED)
+      CA = CDC
+      IF (C.LT.50.0) CA = CDC*(1.0 + B*EXP(-C))
+      GO TO 90
+   93 CA = PIF1(MACH,TBLMA,NMAC,CDMTBL)
+C
+C                            WEIGHT LOSS
+C
+   90 IF (DWT.EQ.0.0) GO TO 110
+      WTMULT = PIF1(HHHH,WALT,NWT,DLWT)
+      MASS = (WO/GO)*WTMULT
+C
+C                            WEIGHT, CA CHANGE VS TIME
+C
+  110 IF (TFIL.LE.0.0) GO TO 135
+      IF (T.GE.TFIL) GO TO 125
+      MASS = (WFIL/GO)*WTMULT
+      CA = CA*CAFIL
+      GO TO 130
+  125 MASS = (WO/GO)*WTMULT
+      IF (JACK.GT.1) GO TO 135
+      HJACK = COLD + ((TFIL-TOLD)/(T-TOLD))*(H(5)-COLD)
+      JACK = 2
+      GO TO 135
+  130 COLD = H(1)
+      TOLD = T
+  135 CONTINUE
+C
+C                             SKIN FRICTION
+C
+      IF (SKINFR) 140,205,140
+  140 DO 145 J=1,NALT
+      IF (ALTTBL(J).GT.HHHH) GO TO 150
+  145 CONTINUE
+      J = NALT
+  150 DO 155 K=1,NVEL
+      IF (VELTBL(K).GT.VAIR) GO TO 160
+  155 CONTINUE
+      K = NVEL
+  160 ALTRAT = (HHHH-ALTTBL(J-1))/(ALTTBL(J)-ALTTBL(J-1))
+      VRAT = (VAIR-VELTBL(K-1))/(VELTBL(K)-VELTBL(K-1))
+      E = CASFTB(J-1,K-1) + ALTRAT*(CASFTB(J,K-1)-CASFTB(J-1,K-1))
+      F = CASFTB(J-1,K) + ALTRAT*(CASFTB(J,K)-CASFTB(J-1,K))
+      CASF = E + VRAT*(F-E)
+      CA = CA + CASF
+C                            PARAMETER CALCULATIONS
+  205 QBAR = 0.5*RHO*VAIR**2
+      A = QBAR*SREF/MASS
+      AX = CA*A/GO
+      CD = CA
+      CL = CD*RLD
+      AD = CD*A
+      AL = CL*A
+      AY = RYD*AD
+      RETURN
+      END
+C***********************************************************************
+      SUBROUTINE OUTPT
+      COMMON/DPRES/RE,H(5),AZR,GAMR,WE,T,GR,AD,AL,AY
+      COMMON/FLOT /THETO,PHIO,THETAX,PHIX,GO,MASS,RAD,RHO,WTMULT,
+     1 TOLD,VAIR,MACH,QBAR,REY,CD,CA,HJACK,VSOUND,TEMP,WO,SREF,
+     2 TFIL,WFIL,CAFIL,SKINFR,DWT,     QC,QR,QDC,QDR,AZO,TO,
+     3 PRS,MOLW,CASE(17),QDFM,QFM,CDC,CDFM,RNOSE,ED,HOUT,GAMI,VI,
+     4 AZI,XLAT,XLONG,DIFMD   ,RANGE,RANGEO,HTS,RLD,RECS,DREF,RYD
+      COMMON/FIXED/I,NWT,NALT,NVEL,JACK,NMACH,LNKT1,KOUT,NHCHEK,
+     1  NOUT,KJACK,IAERO,NCD,NMAC,ISWH,IOUT,IPASS,NPASS,IPUNCH,JDATE(3)
+      DOUBLE PRECISION RE,H,AZR,GAMR,WE,T,GR,AD,AL,AY
+      REAL MACH,MASS,MRAT,MOLW,LAT,LON
+C                            LIST OUTPUT
+      IF (NHCHEK.EQ.2) GO TO 335
+      IF (KOUT.LT.NOUT) GO TO 330
+      GO TO 335
+  330 KOUT = KOUT + 1
+      GO TO 370
+  335 IF (LNKT1.LE.35) GO TO 345
+      WRITE(6,451)
+      WRITE(6,450) CASE, JDATE
+      WRITE(6,455)
+      LNKT1 = 0
+  345 IF (TFIL.LE.0.0) GO TO 365
+      IF (KJACK.GT.1) GO TO 365
+      IF (T.LT.TFIL) GO TO 365
+      WRITE(6,360) TFIL, HJACK
+      KJACK = 2
+  365 LAT = 90.0 - THETAX*RAD
+      LON = PHIX*RAD - WE*(T-TO)*RAD
+      GAMMA = GAMR*RAD
+      AZ = AZR*RAD
+      DR = (THETAX - THETO)*RE
+      CR = (PHIX - PHIO)*RE*SIN(THETO)
+      DRANGE = -DR*COS(AZO/RAD) + CR*SIN(AZO/RAD)
+      CRANGE = DR*SIN(AZO/RAD) + CR*COS(AZO/RAD)
+      RANGE = SQRT(DRANGE**2 + CRANGE**2)/6080.0 + RANGEO
+      VIS = 9.898E-7*(TEMP/1.8)**1.5/(110.4+TEMP/1.8)
+      REY = RHO*VAIR*DREF*GO/VIS
+      XKNU = MACH/SQRT(REY)
+      WT = WO*WTMULT
+      BETA = WT/(CD*SREF)
+      REY = REY/1.0E+6
+      GSEC = AD/GO
+C  TOTAL PRESSURE
+      IF (MACH.LT.5.0) GO TO 301
+C  HYPERSONIC FLOW
+      PT2 = 1.35*MACH**2
+      GO TO 305
+  301 IF (MACH.GT.1.0) GO TO 302
+C  SUBSONIC FLOW
+      PT2 = (1.0 + 0.2*MACH**2)**(3.5)
+      GO TO 305
+c  SUPERSONIC FLOW
+  302 GA = 1.4
+      GAA = GA
+      DO 303 J = 1,5
+      TS = TEMP*(1.0 + (GAA-1.0)*MACH**2/2.0)
+      IF (TS.LT.500.0) GO TO 304
+      G2 = 1.286
+      IF (TS.LT.3300.0) G2 = (3.3 + TS/2750.0)/(2.3 + TS/2750.0)
+      GAA = (G2 + GA)/2.0
+  303 CONTINUE
+  304 PT2 = ((GAA+1.0)*MACH**2/2.0)**(GAA/(GAA-1.0))
+      PT2 = PT2*((GAA+1.0)/(2.0*GAA*MACH**2-GAA+1.0))**(1.0/(GAA-1.0))
+  305 PT2 = PT2*PRS/2116.224
+      WRITE(6,460) T, VAIR, H(5), LAT, QBAR, BETA, QDC, QDR, QDFM,
+     1             GSEC, MACH, RANGE, LON, REY, CD, QC, QR, DIFMD,
+     2             PRS, AZ, GAMMA, XKNU, WT, HTS, PT2, RECS
+      DR = DRANGE/6080.0
+      CR = CRANGE/6080.0
+      IF (NHCHEK.EQ.2) WRITE(6,462) CR, DR
+C  PUNCH CARDS FOR CMA INOUT
+      IF (IPUNCH.EQ.0) GO TO 369
+      IF (XKNU.LT.0.1) QDFM = 0.0
+      DUM = 0.0
+      HHHH = H(5)/1000.0
+C     PUNCH 461 ,   (T,HTS,QDR,QDC,QDFM,PT2.HHHH,VAIR,DUM)
+C     WRITE(7,701) T, H(5)*0.3048, VAIR*0.3048, 0.0, 0.0, GAMMA,
+C    & RANGE*1853.2
+      WRITE(7,702) LON, LAT, IFIX(REAL(H(5)*0.3048))
+  369 LNKT1 = LNKT1 + 4
+      KOUT = 1
+  370 CONTINUE
+  360 FORMAT(/,20X,3HT =,F9.4,2X,3HH =,F9.0,/)
+  450 FORMAT(    17A4,1X,I2  ,1H/,I2  ,1H/,I4  )
+  451 FORMAT(1H1,25X,24HAEC SAFETY ANALYSIS       )
+  455 FORMAT(/ 90H TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BET
+     1A       QDCW      QDRAD     QDFM      , 
+     2       / 90H GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD
+     3        QCW       QRAD      DIFMD    ,  
+     4       / 90H           P(PSF)     AZ(DEG)   GAMMA    KNUD #    W(L 
+     5BS)     HT(BTU/LB) PTS(ATM)  S(IN)     )
+  460 FORMAT(1H0,   F9.3, 4F10.2,F10.4, 3F10.2 /
+     11X,F9.2  , 3F10.2,F10.6,F10.4,2F10.2 ,F10.6/
+     2      10X, 3F10.2,2F10.4,F10.1,2F10.6)
+  461 FORMAT(1X, F9.2 , F10.1, 3F10.2, F10.5,F6.1,F7.0,F7.2)
+  462 FORMAT(1H0// 5X,13H CROSS RANGE=,F10.3,5X,13H DOWN RANGE=    ,
+     1 F10.3)
+  701 FORMAT(1X,F9.3,4(1H,,F10.2),1H,,F9.4,1H,,F12.2)     
+  702 FORMAT(12X,2(F12.6,1H,),I8)     
+      RETURN
+      END
+C***********************************************************************
+      SUBROUTINE KEPLR
+      COMMON/DPRES/RE,H(5),AZR,GAMR,WE,T,GR,AD,AL,AY
+      COMMON/FLOT /THETO,PHIO,THETAX,PHIX,GO,MASS,RAD,RHO,WTMULT,
+     1 TOLD,VAIR,MACH,QBAR,REY,CD,CA,HJACK,VSOUND,TEMP,WO,SREF,
+     2 TFIL,WFIL,CAFIL,SKINFR,DWT,     QC,QR,QDC,QDR,AZO,TO,
+     3 PRS,MOLW,CASE(17),QDFM,QFM,CDC,CDFM,RNOSE,ED,HOUT,GAMI,VI,
+     4 AZI,XLAT,XLONG,DIFMD   ,RANGE,RANGEO,HTS,RLD,RECS,DREF,RYD
+      COMMON/FIXED/I,NWT,NALT,NVEL,JACK,NMACH,LNKT1,KOUT,NHCHEK,
+     1  NOUT,KJACK,IAERO,NCD,NMAC,ISWH,IOUT,IPASS,NPASS,IPUNCH,JDATE(3)
+      DOUBLE PRECISION RE,H,AZR,GAMR,WE,T,GR,AD,AL,AY
+      REAL MACH,MASS,MRAT,MOLW
+      IPASS = IPASS + 1
+      GAMJ = GAMR
+      AZJ = AZR
+      XLO = PHIX - WE*(T-TO)
+      HI = H(I)
+      XL = 1.5707963 - THETAX
+C  CONVERT TO INERTIAL VALUES
+      HRE = RE + HI
+      C1 = HRE*WE*COS(XL)/VAIR
+      VI = VAIR*SQRT(1.0 + C1**2 + 2.0*COS(GAMJ)*SIN(AZJ)*C1)
+      GAMI = ASIN(VAIR*SIN(GAMJ)/VI)
+      AZI = ATAN2(SIN(AZJ)*COS(GAMJ) + C1, COS(GAMJ)*COS(AZJ))
+C  CIRCULAR VELCITY
+      VCIRC = DSQRT(GR*HRE)
+      VR = VI/VCIRC
+      IF (VR.GT.SQRT(2.0)) GO TO 5
+C  ELLIPTICAL ORBIT
+      RR = HRE/RE
+      A = (VR*COS(GAMI))**2
+      E = SQRT(1.0 + A*(VR**2 - 2.0))
+      RP = HRE*A/(1.0 + E)/5280.0
+      RA = HRE*A/(1.0 - E)/5280.0
+      XA = (((RP+RA)*2640.0)**1.5)/(RE*SQRT(GO))
+      TM = 2.0*3.14*XA/3600.0
+      SIO = ACOS((A-1.0)/E)
+C  RE-ENTRY CONDITIONS
+      VIE = VI
+      HE = H(I)
+      GIE = -GAMI
+      SIE = 360.0/RAD - SIO
+C  ORBIT INCLINATION
+      AI = ACOS(COS(XL)*SIN(AZI))
+C  LONGITUDE FROM LINE OF NODES
+      XLIP = ASIN(TAN(XL)/TAN(AI))
+C  CENTRAL ANGLE FROM LINE OF NODES
+      SII = ASIN(SIN(XL)/SIN(AI))
+C  RE-ENTRY CENTRAL ANGLE FROM LINE OF NODES
+      SIR = SIE - SIO + SII
+C  RE-ENTRY LATITUDE
+      XLAT = ASIN(SIN(SIR)*SIN(AI))
+C  RE-ENTRY AZIMUTH
+      AZE = ASIN(COS(AI)/COS(XLAT))
+C  RE-ENTRY LONGITUDE FROM LINE OF NODES
+      XLOR = ASIN(COS(XLAT)*SIN(AZE))
+C  TIME(SEC)
+      TIO = T
+      C1 = SQRT((1.0 - E)/(1.0 + E))
+      C2 = C1*SIN(SIO/2.0)
+      C3 = COS(SIO/2.0)
+      T1 = XA*(2.0*ATAN2(C2,C3) -
+     &  E*SQRT(1.0 - E**2)*SIN(SIO)/(1.0 + E*COS(SIO)))
+      C2 = C1*SIN(SIE/2.0)
+      C3 = COS(SIE/2.0)
+      T2 = XA*(2.0*ATAN2(C2,C3) -
+     &  E*SQRT(1.0 - E**2)*SIN(SIE)/(1.0 + E*COS(SIE)))
+      TIE = TIO + (T2 - T1)
+C  RELATIVE TRUE RE-ENTRY LONGITUDE
+      XLONG = XLOR + XLO - WE*(TIE - TIO)
+C  RANGE (N.M.)
+      RNO = RANGE
+      DR = (XLAT - XL)*RE
+      CR = (XLONG - XLO)*RE*SIN(XL)
+      DRN = -DR*COS(AZJ) + CR*SIN(AZJ)
+      CRN =  DR*SIN(AZJ) + CR*COS(AZJ)
+      RNF = RNO + SQRT(DRN**2 + CRN**2)/6080.0
+      GO TO 100
+C ESCAPE TRAJECTORY
+    5 CONTINUE
+      IPASS = NPASS + 1
+      WRITE(6,206)
+      GO TO 99
+  100 AZI = AZI*RAD
+      GIE = GIE*RAD
+      GAMI = GAMI*RAD
+      XLAT = XLAT*RAD
+      XLONG = XLONG*RAD
+      XLONG = XLONG/360.0
+      IX = IFIX(XLONG)
+      XLONG = (XLONG - FLOAT(IX))*360.0
+      XLO = XLO*RAD
+      XL = XL*RAD
+      AZE = AZE*RAD
+      AI = AI*RAD
+      IF (IPOUT.NE.NPOUT) GO TO 101
+      IPOUT = 0
+C  PRINT
+      WRITE(6,201) CASE, JDATE
+      IF (VE.GT.1.0) GO TO 10
+      WRITE(6,203) IPASS
+      GO TO 11
+   10 WRITE(6,202) IPASS
+   11 CONTINUE
+      WRITE(6,204) E, RP, RA, TM, AI
+      WRITE(6,205) HI, HE, VI, VIE, GAMI, GIE, AZI, AZE,
+     1 XL, XLAT, XLO, XLONG, TIO, TIE, RNO, RNF
+  101 IPOUT = IPOUT + 1
+      IRI = 0
+      RANGEO = 0.0
+      VI = VIE
+      AZI = AZE
+      GAMI = GIE
+      TO = 0.0
+      VI = VIE
+      HI = HE
+C  FORMAT STATEMENTS
+  201 FORMAT(1H1,17A4,1X,I2  ,1H/,I2  ,1H/,I4  )
+  202 FORMAT(23X,17HMULTIORIBT.  PASS, I3 )
+  203 FORMAT(23X,10HSKIP. PASS, I2 )
+  204 FORMAT(4X,16HORBIT PARAMETERS  /
+     1 8X,20HECCENTRICITY        , F10.4 /
+     2 8X,20HPERIGEE(MILES)      , F10.2 /
+     3 8X,30HAPOGEE(MILES)       , F10.2 /
+     4 8X,20HPERIOD(HR)          , F10.2 /
+     5 8X,20HORBIT INCLIN.(DEG)  , F10.2   )
+  205 FORMAT( 41X,4HEXIT,10X5HENTRY      /
+     1 8X, 25HGEOCENTRIC ALT(FT)       , F12.1,4X,F12.1 /
+     2 8X, 25HVELOCITY(FPS)            , F12.1,4X,F12.1 /
+     3 8X, 25HFLIGHT PATH ANG(DEG)     , F12.3,4X,F12.3 /
+     4 8X, 25HAZIMUTH(DEG)             , F12.3,4X,F12.3 /
+     5 8X, 25HLATITUDE-GEOCENTRIC(DEG) , F12.3,4X,F12.3 /
+     6 8X, 25HLONGITUDE(DEG)           , F12.3,4X,F12.3 /
+     7 8X, 25HTIME(SEC)                , F12.2,4X,F12.2 /
+     8 8X, 25hRANGE(N.M.)              , F12.2,4X,F12.2  )
+  206 FORMAT(4X, 46HCONFIGURATION IS ON ESCAPE ORBIT - ALL IS WELL   )
+   99 RETURN
+      END
+C***********************************************************************
+      FUNCTION AZMUTH(YN,XD)
+C
+C     FUNCTION AZMUTH
+C
+      AT = ABS(ATAN(YN/XD))
+      AC = ABS(ATAN(XD/YN))
+      IF (ABS(XD).LT.ABS(YN)) GO TO 45
+      IF (YN) 15,80,30
+   15 IF (XD.GT.0.0) GO TO 25
+   20 ARCTAN = -3.14159265 + AT
+      GO TO 90
+   25 ARCTAN = -AT
+      GO TO 90
+   30 IF (XD.GT.0.0) GO TO 40
+      ARCTAN = 3.14159265 - AT
+      GO TO 90
+   40 ARCTAN = AT
+      GO TO 90
+   45 IF (YN.GT.0.0) GO TO 65
+      IF (XD.GT.0.0) GO TO 60
+      ARCTAN = -3.14159265/2.0 - AC
+      GO TO 90
+   60 ARCTAN = -3.14159265/2.0 + AC
+      GO TO 90
+   65 IF (XD.GT.0.0) GO TO 75
+      ARCTAN = 3.14159265/2.0 + AC
+      GO TO 90
+   75 ARCTAN = 3.14159265/2.0 - AC
+      GO TO 90
+   80 IF (XD) 20,85,25
+   85 ARCTAN = 0.0
+   90 AZMUTH = ARCTAN
+      RETURN
+      END
+C***********************************************************************
+      SUBROUTINE ATM(Z1,P1,T1,W1,A1,D1)
+C  U.S. STANDARD ATMOSPHERE TO 700000 METERS.
+C  INPUT IS ALTITUDE IN FT (GEOMETRIC). OUTPUT IS,
+C     P1     PRESSURE               (LB/FT**2)
+C     T1     TEMPERATURE            (DEG. RANKINE)
+C     W1     MOLECULAR WEIGHT       (LB/LB-MOLE)
+C     A1     SPEED OF SOUND         (FT/SEC)
+C     D1     DENSITY                (LB-SEC**2)/FT**4
+      COMMON /ATMOT/ Z(22),TMB(22) ,R(21), PB(22),C1,C2,C3,
+     1         C7,C8,ZM,RO,GM,GAM,RST,GO,PO,WO,GO1
+      Z1 = C1*Z1
+      DO 1 I = 1,22
+    1 IF (Z1.LT.Z(I)) GO TO 2
+      I = 23
+    2 I = I - 1
+      IF (I.EQ.0) I = 1
+      A1 = RO + Z(I)
+      A2 = RO + Z1
+      A3 = Z(I)**2 - Z1**2
+      IF (I.GE.9) GO TO 50
+C  ALTITUDE BELOW 90000 METERS
+      DH = (GM/GO)*((1./A1) - (1./A2)) + C7*A3/(2.*GO)
+      T1 = TMB(I) + (R(I)*DH/C2)
+      W1 = WO
+      A  = GO*WO/RST
+      DO 11 K = 1,3
+      J = -1 + 3*K
+   11 IF (I.EQ.J) GO TO 12
+      P1 = PB(I) * ((TMB(I)/(TMB(I) + (R(I)*DH/C2)))**(A/R(I)))
+      GO TO 200
+   12 P1 = PB(I) * EXP(- A*DH/(TMB(I)*C2))
+      GO TO 200
+C  ALTITUDE ABOVE 90000 METERS
+   50 Z1 = Z1/C2
+      IF (Z1.GE.110.0) GO TO 51
+      W1 = 17.98 + 0.239*Z1 - 0.0013*(Z1**2)
+      GO TO 53
+   51 IF (Z1.GT.170.0) GO TO 57
+      W1 = -.41873644E+02 + .22496378E+01*Z1 - .25825938E-01*(Z1**2)
+     &     +.12705198E-03*(Z1**3) - .22989608E-06*(Z1**4)
+      GO TO 53   
+   57 W1 = +.28312068E+02 + .11190901E-01*Z1 - .18061034E-03*(Z1**2)
+     &     +.31829429E-06*(Z1**3) - .16924926E-09*(Z1**4)
+   53 Z1  = Z1*C2
+      TM  = TMB(I) + (R(I)*(Z1 - Z(I))/C2)
+      T1  = (W1/WO)*TM
+      A4  = -Z(I) + (TMB(I)*C2/R(I))
+      A5  = WO*C2/(R(I)*RST)
+      A6  = Z(I) + A4
+      A7  = Z1 + A4
+      A8  = RO - A4
+      A9  = ((Z(I) - Z1)/(A1*A2)) + (1./A8)*ALOG(A7*A1/(A6*A2))
+      A10 = (Z(I) - Z1) + A4*ALOG(A7/A6)
+      A11 = (-(GM/A8)*A9 - C7*A10)*WO/(R(I)*RST)
+      P1  = PB(I)*EXP(A11)
+C  PRESSURE, TEMPERATURE AND MOLECULAR WEIGHT FOUND
+  200 P1 = PO*P1
+      Z1 = Z1/C1
+      T1 = T1*C3
+      A2 = RST*185.86126/W1
+      A1 = SQRT(GAM*A2*T1*GO*C8)
+      D1 = P1/(A2*T1*GO1)
+      RETURN
+      END
+C***********************************************************************
+      FUNCTION PIF1(X,XLIST,N,FLIST)
+C              NEW PIF1
+CPIF1          LINEAR INTERPOLATION OVER ONE VARIABLE
+C              CORRECTED 6-8-66 WTR
+      DIMENSION XLIST(1), FLIST(1)
+      DO 6 I = 2,N
+      IF (X-XLIST(I)) 7,7,6
+    6 CONTINUE
+      I = NX
+    7 PIF1 = FLIST(I-1) + (X-XLIST(I-1))*(FLIST(I)-FLIST(I-1))/
+     & (XLIST(I)-XLIST(I-1))
+      RETURN
+      END
+C***********************************************************************
+      FUNCTION PIF11(X,Y,XV,NX,YV,NY,F,NFX,NFY)
+CPIF11        LINEAR INTERPOLATION OVER TWO VARIABLES
+      DIMENSION XV(1), YV(1), F(NFX,NFY)
+      DO 6 I = 2,NX
+      IF (X-XV(I)) 7,7,6
+    6 CONTINUE
+      I = NX
+    7 DO 8 J = 2,NY
+      IF (Y-YV(J)) 9,9,8
+    8 CONTINUE
+      J = NY
+    9 XR = (X-XV(I-1))/(XV(I)-XV(I-1))
+      YR = (Y-YV(J-1))/(YV(J)-YV(J-1))
+      F1 = F(I-1,J-1) + XR*(F(I,J-1)-F(I-1,J-1))
+      F2 = F(I-1,J  ) + XR*(F(I,J  )-F(I-1,J  ))
+      PIF11 = F1 + YR*(F2-F1)
+      RETURN
+      END     
+   

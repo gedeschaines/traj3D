@@ -12,7 +12,7 @@ A set of Fortran programs derived from the three-degree of freedom (3DOF) reentr
 
 Although the **TDOF** computer program was developed for, and employed in, Aerospace Nuclear Safety Program studies pertaining to issues involving launch and reentry of space vehicles containing radioactive material (i.e., see [2],[3]), it is solely used herein to generate ballistic trajectories of notional ejecta material from an hypothesized cosmic body impacting Saginaw Bay, Michigan [4],[5].
 
-The primary motivation to hand code the **TDOF** program from the code listing in Appendix I of reference [1], incorporate necessary changes to make it operational and add functional features was to provide a means to generate ballistic trajectories for comparitive validation of another independently developed ballistic trajectory simulation - **btsim**. This effort was conducted in several incremental steps to arrive at **traj3D1**.
+The primary motivation to hand code the **TDOF** program from the code listing in Appendix I of reference [1], incorporate necessary changes to make it operational and add functional features was to provide a means to generate ballistic trajectories for comparitive verification of another independently developed ballistic trajectory simulation - **btsim**. This effort was conducted in several incremental steps to arrive at **traj3D1**.
 
 1. Hand code TDOF.f while maintaining line by line statement syntax match with Appendix I card deck listing.
 2. Incorporate changes to make TDOF.f operational, such as comment non-functional PUNCH statements, add missing PIF11 function, and add geodesy data output file OPEN and formatted WRITE statements.
@@ -88,3 +88,22 @@ from within the ./traj3D directory. During program execution standard output wil
 
 + See the file [DISCLAIMER-APL](./DISCLAIMER-APL)
 + See the file [DISCLAIMER-GED](./DISCLAIMER-GED)
+
+## Epilogue ##
+
+The WIRED article [If Galileo Had Fallen to Earth (1988)](https://www.wired.com/2012/12/galileo-and-an-uncontrolled-shuttle-orbiter-reentry-1988/) by [David S. F. Portree](https://www.wired.com/author/david-s-f-portree) highlights concerns of critical launch or orbital failures involving the Galileo Jupiter spacecraft carrying a total of 34.4 pounds of plutonium within the General Purpose Heat Source (GPHS) modules of its two Radioisotope Thermoelectric Generators (RTGs). This article mentions "Angus McRonald, an engineer at the Jet Propulsion Laboratory (JPL) in Pasadena, California," who provided analytical evidence to support conclusions about launch failure scenarios in which aerodynamic heating effects could potentially cause RTGs to break apart, scattering and exposing GPHSs to melting conditions.
+
+An "A. McRonald" at JPL, California Institute of Technology in Pasadena appears in the external distribution list and as an author in several referenced technical reports of reference [[3]](https://www.osti.gov/biblio/10103514) cited above. It's quite possible these A. McRonalds are one and the same!
+
+The TDOF computer program and analytic work by L. L. Perini, A. McRonald and many others have had a notable contribution to U.S. spacecraft programs.
+
+The following is an e-mail submitted to Johns Hopkins, Applied Physics Lab (APL) over a year ago without receiving a reply.
+
+>I'm seeking permission to upload to GITHUB, with appropriate legal, copyright and disclaimer notices, the Fortran source code and sample input deck presented in Appendix I and II of "Users Manual for the 3DOF Trajectory Computer Program" by L. L. Perini available at the following link:
+>
+>[https://www.osti.gov/biblio/4290244](https://www.osti.gov/biblio/4290244)
+>
+>I came across this publication several years ago and selected the 3DOF (TDOF) Computer Program to use as a verification reference for a ballistic trajectory simulation I developed to run in Octave. For this purpose, I hand coded the source listing and input deck for personal use on a Linux based computer platform. I would like to provide pubic access to Johns Hopkins APL's original TDOF Computer Program and my modified verification version for others to utilize.
+
+Respectfully,  
+G. E. Deschaines

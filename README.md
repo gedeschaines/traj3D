@@ -62,7 +62,7 @@ from within the ./traj3D directory. During program execution standard output wil
 
 ### Optional Ballistic Trajectory Presentation in Google Earth ###
 
-1. Create a traj_folder_desc_{name}.kml file corresponding to namelist filename.
+1. Create a ./kml/traj_folder_desc_{name}.kml file corresponding to namelist filename.
 2. Invoke **create_traj_kml.py** to generate trajectory KML file.
 3. In Google Earth add the trajectory KML file as a Network Link.
 

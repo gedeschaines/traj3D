@@ -2,9 +2,10 @@
 
 ____________
 
-<p align="center">
- <a href="https://youtu.be/mKu9COBJzXw" target="_blank"><img src="./doc/traj3D1BallisticTrajectories.png" width="830" height="570" alt="traj3D1 generated ballistic trajectories displayed in Google Earth Pro"/></a>
-</p>
+ <p align="center">
+  <a href="https://youtu.be/mKu9COBJzXw" target="_blank">
+   <img src="./doc/traj3D1BallisticTrajectories.png" width="830" height="570" alt="traj3D1 generated ballistic trajectories displayed in Google Earth Pro"/></a>
+ </p>
 
 A set of Fortran programs derived from the three-degree of freedom (3DOF) reentry trajectory computer code **TDOF** documented in "Users Manual for the 3DOF Trajectory Computer Program" presented as reference [1].
 

@@ -57,6 +57,24 @@
         <width>3</width>
       </LineStyle>
     </Style>
+    <Style id="thinPurpleLine">
+      <LineStyle>
+        <color>ffff00ff</color>
+        <width>1</width>
+      </LineStyle>
+    </Style>
+    <Style id="thickPurpleLine">
+      <LineStyle>
+        <color>ffff00ff</color>
+        <width>3</width>
+      </LineStyle>
+    </Style>
+    <Style id="thickYellowLine">
+      <LineStyle>
+        <color>ff00ffff</color>
+        <width>3</width>
+      </LineStyle>
+    </Style>
     <Style id="thinRedLineRedPoly">
       <LineStyle>
         <color>ff0000ff</color>
@@ -265,6 +283,30 @@
          -77.606194,35.704403,0
       </coordinates>
      </Point>
+    </Placemark>
+    <Placemark>
+     <name>Impact Relative Velocity: 10016.06fps @ 151.81az -44.76el</name>
+     <visibility>1</visibility>
+     <description>SAGINAW_EJECTA_O: Cd=0.0 10497.16fps @ 5000ft AMSL 138.2964az 42.3469el</description>
+      <LookAt>
+       <longitude>-77.606194</longitude>
+       <latitude>35.704403</latitude>
+       <altitudeMode>absolute</altitudeMode>      
+       <altitude>2000</altitude>
+       <heading>331.83</heading>
+       <tilt>85.0</tilt>
+       <range>20000.0</range>
+      </LookAt>
+     <styleUrl>#thickYellowLine</styleUrl>
+     <LineString>
+      <extrude>0</extrude>
+      <tessellate>1</tessellate>
+      <altitudeMode>clampToGround</altitudeMode>
+      <coordinates>
+        -77.606194,35.704403,0
+        -77.600963,35.696476,0
+      </coordinates>
+     </LineString>
     </Placemark>
     <Placemark>
      <name>Observed Trajectory Launch Point to Maximum Altitude Point to Impact Point Great Circle Paths</name>

@@ -1,4 +1,4 @@
-1 SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+1 SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
                       **** OPTION TABLES ****
 
         INPUT AERO TABLE 
@@ -14,7 +14,7 @@
   1.000000          1.50
   0.900000          4.00
   0.900000         25.00
-1 SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+1 SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
             INPUT VARIABLES 
 
 
@@ -48,7 +48,7 @@
                CUTOFF ALT(FT) =      1.0 OR 10000000.0
                RADIATIVE FLUX-MODIFIED CALLIS  
 1                         AEC SAFETY ANALYSIS     
- SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+ SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
 
  TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BETA       QDCW      QDRAD     QDFM    
  GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD         QCW       QRAD      DIFMD   
@@ -81,7 +81,7 @@
       0.00     10.32     50.31    -83.23  0.002160    0.0001   5511.89      0.00  0.000345
                 0.02    145.84     40.28    0.2220  530.4000    1611.2  0.001405  0.068481
 1                         AEC SAFETY ANALYSIS     
- SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+ SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
 
  TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BETA       QDCW      QDRAD     QDFM    
  GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD         QCW       QRAD      DIFMD   
@@ -114,7 +114,7 @@
       0.00      4.00    105.59    -82.59  0.000000    0.0001   5527.80      0.00  0.000000
                 0.00    146.72     33.93   17.4594  530.4000    1638.3  0.000000  0.068672
 1                         AEC SAFETY ANALYSIS     
- SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+ SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
 
  TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BETA       QDCW      QDRAD     QDFM    
  GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD         QCW       QRAD      DIFMD   
@@ -147,7 +147,7 @@
       0.00      3.05    159.83    -82.00  0.000000    0.0001   5528.34      0.00  0.000000
                 0.00    147.53     26.33   37.2002  530.4000    1567.1  0.000000  0.068672
 1                         AEC SAFETY ANALYSIS     
- SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+ SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
 
  TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BETA       QDCW      QDRAD     QDFM    
  GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD         QCW       QRAD      DIFMD   
@@ -180,7 +180,7 @@
       0.00      2.69    213.32    -81.43  0.000000    0.0001   5528.58      0.00  0.000000
                 0.00    148.27     17.51   54.2882  530.4000    1459.1  0.000000  0.068672
 1                         AEC SAFETY ANALYSIS     
- SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+ SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
 
  TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BETA       QDCW      QDRAD     QDFM    
  GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD         QCW       QRAD      DIFMD   
@@ -213,7 +213,7 @@
       0.00      2.52    266.34    -80.88  0.000000    0.0001   5528.73      0.00  0.000000
                 0.00    148.94      7.67   65.2297  530.4000    1393.1  0.000000  0.068672
 1                         AEC SAFETY ANALYSIS     
- SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+ SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
 
  TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BETA       QDCW      QDRAD     QDFM    
  GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD         QCW       QRAD      DIFMD   
@@ -246,7 +246,7 @@
       0.00      2.49    319.19    -80.35  0.000000    0.9606   5528.86      0.00  0.000000
                 0.00    149.55     -2.65   67.3977  530.4000    1380.8  0.000000  0.068672
 1                         AEC SAFETY ANALYSIS     
- SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+ SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
 
  TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BETA       QDCW      QDRAD     QDFM    
  GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD         QCW       QRAD      DIFMD   
@@ -279,7 +279,7 @@
       0.00      2.59    372.11    -79.83  0.000000    0.9563   5529.00      0.00  0.000000
                 0.00    150.10    -12.79   60.2608  530.4000    1422.5  0.000000  0.068672
 1                         AEC SAFETY ANALYSIS     
- SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+ SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
 
  TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BETA       QDCW      QDRAD     QDFM    
  GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD         QCW       QRAD      DIFMD   
@@ -312,7 +312,7 @@
       0.00      2.85    425.39    -79.32  0.000000    0.9458   5529.19      0.00  0.000000
                 0.00    150.59    -22.12   45.5772  530.4000    1515.2  0.000000  0.068672
 1                         AEC SAFETY ANALYSIS     
- SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+ SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
 
  TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BETA       QDCW      QDRAD     QDFM    
  GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD         QCW       QRAD      DIFMD   
@@ -345,7 +345,7 @@
       0.00      3.38    479.30    -78.82  0.000000    0.9246   5529.54      0.00  0.000000
                 0.00    151.01    -30.29   26.8056  530.4000    1630.6  0.000000  0.068672
 1                         AEC SAFETY ANALYSIS     
- SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+ SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
 
  TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BETA       QDCW      QDRAD     QDFM    
  GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD         QCW       QRAD      DIFMD   
@@ -378,7 +378,7 @@
       0.00      7.48    534.13    -78.32  0.000003    0.9000   5530.95      0.00  0.000004
                 0.00    151.38    -37.20    4.2487  530.4000    1522.4  0.000003  0.068675
 1                         AEC SAFETY ANALYSIS     
- SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+ SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
 
  TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BETA       QDCW      QDRAD     QDFM    
  GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD         QCW       QRAD      DIFMD   
@@ -411,7 +411,7 @@
       8.50      8.38    589.60    -77.82  0.711752    0.9000   5943.23      0.00  0.006629
                12.06    151.69    -43.02    0.0099  530.4000    1408.0  0.540404  0.074657
 1                         AEC SAFETY ANALYSIS     
- SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+ SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
 
  TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BETA       QDCW      QDRAD     QDFM    
  GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD         QCW       QRAD      DIFMD   
@@ -444,7 +444,7 @@
       8.53      2.32    600.49    -77.73  2.696824    0.9673   6274.38      0.00  0.005064
               147.12    151.74    -47.03    0.0014  530.4000      65.4  0.512839  0.087061
 1                         AEC SAFETY ANALYSIS     
- SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+ SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
 
  TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BETA       QDCW      QDRAD     QDFM    
  GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD         QCW       QRAD      DIFMD   
@@ -477,7 +477,7 @@
       1.12      0.57    609.58    -77.70  2.405502    0.5570   6268.14      0.00  0.003529
               554.71    151.78    -79.79    0.0004  530.4000     -26.0  0.327032  0.101500
 1                         AEC SAFETY ANALYSIS     
- SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+ SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
 
  TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BETA       QDCW      QDRAD     QDFM    
  GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD         QCW       QRAD      DIFMD   
@@ -510,7 +510,7 @@
       1.08      0.38    618.86    -77.70  3.209319    0.4765   6255.81      0.00  0.003529
              1391.08    152.22    -89.31    0.0002  530.4000     -10.5  0.727070  0.118826
 1                         AEC SAFETY ANALYSIS     
- SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34  1/ 5/2022
+ SAGINAW_EJECTA_O: Cd=0.4 10497.16fps @ 5000ft AMSL 138.2964az 42.34 26/ 5/2022
 
  TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BETA       QDCW      QDRAD     QDFM    
  GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD         QCW       QRAD      DIFMD   

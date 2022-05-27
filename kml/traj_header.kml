@@ -69,6 +69,12 @@
         <width>3</width>
       </LineStyle>
     </Style>
+    <Style id="thickYellowLine">
+      <LineStyle>
+        <color>ff00ffff</color>
+        <width>3</width>
+      </LineStyle>
+    </Style>
     <Style id="thinRedLineRedPoly">
       <LineStyle>
         <color>ff0000ff</color>

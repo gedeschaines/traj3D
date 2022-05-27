@@ -68,6 +68,30 @@
      </Point>
     </Placemark>
     <Placemark>
+     <name>Impact Relative Velocity: __VREL__fps @ __VAZIM__az __VELEV__el</name>
+     <visibility>1</visibility>
+     <description>__DESC__</description>
+      <LookAt>
+       <longitude>__LONN__</longitude>
+       <latitude>__LATN__</latitude>
+       <altitudeMode>absolute</altitudeMode>      
+       <altitude>2000</altitude>
+       <heading>__AZN__</heading>
+       <tilt>85.0</tilt>
+       <range>20000.0</range>
+      </LookAt>
+     <styleUrl>#thickYellowLine</styleUrl>
+     <LineString>
+      <extrude>0</extrude>
+      <tessellate>1</tessellate>
+      <altitudeMode>clampToGround</altitudeMode>
+      <coordinates>
+        __LONN__,__LATN__,0
+        __LONZ__,__LATZ__,0
+      </coordinates>
+     </LineString>
+    </Placemark>
+    <Placemark>
      <name>__MODE__ Trajectory Launch Point to Maximum Altitude Point to Impact Point Great Circle Paths</name>
      <visibility>1</visibility>
      <description>__DESC__</description>

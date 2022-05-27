@@ -5,7 +5,8 @@ This document describes the purpose of provided **traj3D1** input namelist files
 + Trajectory,
 + Launch Point,
 + Maximum Altitude Point,
-+ Impact Point, and
++ Impact Point,
++ Impact Relative Velocity and
 + Trajectory Launch Point to Maximum Altitude Point to Impact Point Great Circle Paths.
 
 The mass and aerodynamic characterization for notional ejecta as a solid ice sphere approximately one meter in diameter are:
@@ -161,11 +162,11 @@ The reentry only atmospheric drag ballistic trajectory simulations exhibit skewi
 
 The inbound headings of **traj3D1** generated observed and inertial ballistic trajectories for no-drag and reentry only drag cases shown below in Figures 10 and 11 respectively, demonstrate a difference with respect to orientations of Carolina Bays in the vicinity of the impact points. Besides aerodynamic drag uncertainties due to turbulent atmospheric properties, ejecta size and composition, other factors which may account for these differences are ejecta launch location, altitude, speed, azimuth and elevation.
 
- <p align="center">Figure-10 traj3D1 No-drag Ballistic Trajectories Impact Points in Google Earth Pro for Cases 4-5.
+ <p align="center">Figure-10 traj3D1 No-drag Ballistic Trajectories Impact Points and Relative Horizontal Velocity Heading in Google Earth Pro for Cases 4-5.
   <img src="./PreliminaryCasesFigure10.png" width="926" height="526" alt="traj3D1 no-drag ballistic trajectories impact points displayed in Google Earth Pro for cases 4-5"/>
  </p>
 
- <p align="center">Figure-11 traj3D1 Reentry Only Drag Ballistic Trajectories Impact Points in Google Earth Pro for Cases 9-10.
+ <p align="center">Figure-11 traj3D1 Reentry Only Drag Ballistic Trajectories Impact Points and Relative Horizontal Velocity Heading in Google Earth Pro for Cases 9-10.
   <img src="./PreliminaryCasesFigure11.png" width="926" height="526" alt="traj3D1 rentry only drag ballistic trajectories impact points displayed in Google Earth Pro for cases 9-10"/>
  </p>
 

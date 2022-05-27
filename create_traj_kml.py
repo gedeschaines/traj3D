@@ -53,7 +53,7 @@ DESC: Given traj3D version and name of input namelist file,
        - ./kml/traj_footer.kml
 """
 import sys
-from math import pi, atan2, sin, cos
+from math import pi, asin, atan2, sin, cos
 
 try:
     import numpy as np
@@ -61,7 +61,7 @@ except ImportError:
     print("* Error: NumPy required.")
     print("         Suggest installing the SciPy stack.")
     sys.exit()
-    
+
 # Units of Measure Conversion Constants
 
 RPD  = pi/180.0   # radians per degree
@@ -70,13 +70,23 @@ MPFT = 0.3048     # meters per foot
 MPNM = 1853.184   # meters per nautical mile
 
 def aviation_bearing(latA,lonA,latB,lonB):
-    """ Assumes geocentric latitudes and longitudes are given in radians.
+    """ Assumes latitudes and longitudes given in radians.
     """
     dlon = lonB - lonA
     azd = atan2(sin(dlon)*cos(latB),\
                 cos(latA)*sin(latB)-sin(latA)*cos(latB)*cos(dlon))*DPR
     azd = np.mod(azd+360.0, 360.0)
     return azd
+
+def survey_coords(lat0, lon0, az, dst):
+  """ Assumes latitude, longitude and bearing given in radians, 
+      distance in meters.
+  """
+  Ro = 6371008.8  # mean radius of earth (meters)
+  thto = dst/Ro   # arc distance (radians)
+  lat1 = asin(sin(thto)*cos(lat0)*cos(az) + cos(thto)*sin(lat0))
+  lon1 = lon0 + atan2(sin(az)*sin(thto)*cos(lat0), cos(thto)-sin(lat0)*sin(lat1))
+  return (lat1, lon1)
 
 if __name__ == "__main__":
     
@@ -219,10 +229,18 @@ if __name__ == "__main__":
         ihgt[i] = int(shgt)
     m = np.argmax(ihgt)
   
+    # Calculate bearings at launch, midpoint and impact.
+ 
     az0d = aviation_bearing(flat[0]*RPD,flon[0]*RPD,flat[1]*RPD,flon[1]*RPD)
     azMd = aviation_bearing(flat[0]*RPD,flon[0]*RPD,flat[m]*RPD,flon[m]*RPD)
     azNd = aviation_bearing(flat[-1]*RPD,flon[-1]*RPD,flat[-2]*RPD,flon[-2]*RPD)
-    
+
+    # Generate coordinates of relative velocity horizontal component at impact.
+
+    (latZr, lonZr) = survey_coords(flat[-1]*RPD,flon[-1]*RPD,azdeg*RPD,1000.0)
+    latZd = latZr*DPR
+    lonZd = lonZr*DPR
+
     # Read trajectory header KML file.
     
     kml_file = open('./kml/traj_folder_desc_' + name + '.kml', 'r')
@@ -261,6 +279,11 @@ if __name__ == "__main__":
     slatN   = "%.6f" % flat[n-1]
     shgtN   = "%d"   % ihgt[n-1]
     sazNd   = "%.2f" % azNd
+    svrel   = "%.2f" % vrfps
+    svazim  = "%.2f" % azdeg
+    svelev  = "%.2f" % gamma 
+    slonZ   = "%.6f" % lonZd
+    slatZ   = "%.6f" % latZd
   
     header_kml = header_kml.replace('__FLDRDESC__', folder_kml)
     
@@ -295,6 +318,12 @@ if __name__ == "__main__":
     footer_kml = footer_kml.replace('__HGTN__',   shgtN)
     footer_kml = footer_kml.replace('__AZN__',    sazNd)
     footer_kml = footer_kml.replace('__COLOR__',  color)
+
+    footer_kml = footer_kml.replace('__VREL__',   svrel)
+    footer_kml = footer_kml.replace('__VAZIM__',  svazim)
+    footer_kml = footer_kml.replace('__VELEV__',  svelev)
+    footer_kml = footer_kml.replace('__LONZ__',   slonZ)
+    footer_kml = footer_kml.replace('__LATZ__',   slatZ)
    
     # Create trajectory KML file.
     

@@ -57,6 +57,18 @@
         <width>3</width>
       </LineStyle>
     </Style>
+    <Style id="thinPurpleLine">
+      <LineStyle>
+        <color>ffff00ff</color>
+        <width>1</width>
+      </LineStyle>
+    </Style>
+    <Style id="thickPurpleLine">
+      <LineStyle>
+        <color>ffff00ff</color>
+        <width>3</width>
+      </LineStyle>
+    </Style>
     <Style id="thinRedLineRedPoly">
       <LineStyle>
         <color>ff0000ff</color>

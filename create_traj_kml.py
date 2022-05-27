@@ -118,9 +118,14 @@ if __name__ == "__main__":
         comma_idx = lines[2].find(',', tfinal_idx)
         tfinal = float(lines[2][equal_idx:comma_idx])
         if tfinal > -1.0:
-            smode = 'Inertial'
-            sevnt = 'Impact Time - __TOFHRS__ hours'
-            color = 'Red'
+            if tfinal > 0.0:
+                smode = 'Inertial'
+                sevnt = 'Impact Time - __TOFHRS__ hours'
+                color = 'Red'
+            else:
+                smode = 'Relative'
+                sevnt = 'Launch and Impact Time'
+                color = 'Purple'
         else:
             smode = 'Observed'
             sevnt = 'Launch Time + __TOFHRS__ hours'

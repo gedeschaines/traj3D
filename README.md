@@ -104,7 +104,7 @@ The following is an e-mail submitted to Johns Hopkins, Applied Physics Lab (APL)
 >
 >[https://www.osti.gov/biblio/4290244](https://www.osti.gov/biblio/4290244)
 >
->I came across this publication several years ago and selected the 3DOF (TDOF) Computer Program to use as a verification reference for a ballistic trajectory simulation I developed to run in Octave. For this purpose, I hand coded the source listing and input deck for personal use on a Linux based computer platform. I would like to provide pubic access to Johns Hopkins APL's original TDOF Computer Program and my modified verification version for others to utilize.
+>I came across this publication several years ago and selected the 3DOF (TDOF) Computer Program to use as a verification reference for a ballistic trajectory simulation I developed to run in Octave. For this purpose, I hand coded the source listing and input deck for personal use on a Linux based computer platform. I would like to provide public access to Johns Hopkins APL's original TDOF Computer Program and my modified verification version for others to utilize.
 
 Respectfully,  
 G. E. Deschaines

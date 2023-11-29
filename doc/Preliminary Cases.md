@@ -156,7 +156,7 @@ The ballistic trajectories for all four reentry drag case exhibit steepening of 
 
 ## Conclusions ##
 
-The non-drag ballistic trajectory simulations exhibit characteristics -- primarily time of flight, range, maximum altitude and inclination angle at impact -- espoused by Antonio Zemora in the "Extraterrestrial Impact amd Ballistic Flight" section of his book entitled "The Neglected Carolina Bays: Ubiquitous Geological Evidence of a Cataclysm" identified as reference [5] of the **traj3D** project [README](../README.md) file.
+The non-drag ballistic trajectory simulations exhibit characteristics -- primarily time of flight, range, maximum altitude and inclination angle at impact -- espoused by Antonio Zemora in the "Extraterrestrial Impact and Ballistic Flight" section of his book entitled "The Neglected Carolina Bays: Ubiquitous Geological Evidence of a Cataclysm" identified as reference [5] of the **traj3D** project [README](../README.md) file.
 
 The reentry only atmospheric drag ballistic trajectory simulations exhibit skewing of the bearing angle at impact in rotational direction, but not magnitude as illustrated by Michael Davias in his [Modeling of The Inferred Orientation of Carolina bays](http://cintos.org/SaginawManifold/Modeling/index.html) analysis. Modeling aerodynamic drag for an ejecta object as that of a smooth solid ice sphere one meter in diameter while discounting surface roughness, flow separation, ablation and fragmetation, understandably produces extremely course results.
 

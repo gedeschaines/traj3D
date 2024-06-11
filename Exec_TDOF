@@ -28,7 +28,7 @@ then
   echo "        Create in ./bin subdirectory with gfortran"
   echo "        as shown in following command expression."
   echo " "
-  echo "        gfortran -o ./bin/TDOF.exe ./src/TDOF.f"
+  echo "        gfortran -std=legacy -w -o ./bin/TDOF.exe ./src/TDOF.f"
   exit -2
 fi
 

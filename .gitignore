@@ -1,10 +1,14 @@
 .vscode/
 bin/
+obj/
 ref/
 dat/traj3D?_geoc_*.dat
 dat/traj3D?_grav_*.dat
 **/tmp
-.code-workspace
+*.code-workspace
 *.o
 *.exe
+*.cbp
+*.depend
+*.layout
 *\~

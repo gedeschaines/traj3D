@@ -40,7 +40,7 @@ then
   echo "        Create in ./bin subdirectory with gfortran"
   echo "        as shown in following command expression."
   echo " "
-  echo "        gfortran -o ./bin/traj3D${vers}.exe ./src/traj3D${vers}.f"
+  echo "        gfortran -std=legacy -w -o ./bin/traj3D${vers}.exe ./src/traj3D${vers}.f"
   exit -2
 fi
 

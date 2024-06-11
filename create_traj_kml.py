@@ -219,9 +219,9 @@ if __name__ == "__main__":
     dat_file.close()
     
     n = len(lines)
-    flon = np.ndarray(n, dtype=np.float)
-    flat = np.ndarray(n, dtype=np.float)
-    ihgt = np.ndarray(n, dtype=np.int)
+    flon = np.ndarray(n, dtype=float)
+    flat = np.ndarray(n, dtype=float)
+    ihgt = np.ndarray(n, dtype=int)
     for i in range(n):
         [slon, slat, shgt] = lines[i].split(',')
         flon[i] = float(slon)

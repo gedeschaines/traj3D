@@ -71,6 +71,10 @@ C
       COMMON/RADI/TQR(12,8),TALR(8),TVER(12),LTV,LTZ
       COMMON /GEOD/ REQ, RPO, E2, RROP, F, A6, IOBL
       DOUBLE PRECISION REQ, RPO, E2, RROP, F, A6
+      DOUBLE PRECISION RE,H,AZR,GAMR,WE,T,GR,GT,VR(5),VTH(5),VPH(5),
+     1 VRD(5),VTHD(5),VPHD(5),XL,DT2,DT,THETA(5),PHI(5),HO,XMU,EPS,
+     2 XJ2,HREX(5),R(5),HRE,AD,AL,AY  ,WEC,WES,COSG,SING,WS
+      REAL MACH,MASS,MRAT,MOLW
       NAMELIST/INPUT/      HO    ,VI    ,GAMI  ,TO    ,HCO   ,XLAT  ,
      1       XLONG ,AZREL ,WO    ,SREF  ,DREF  ,IAERO ,NOUT  ,LKASE ,
      2              ROTOPT,TFIL  ,WFIL  ,CAFIL        ,SKINFR,
@@ -78,10 +82,6 @@ C
      4       VREL  ,GAMREL , IRI  ,SWMCH , AZI ,HOUT ,IOBL ,NPASS,
      5         DTMAX, DTMIN,JAERO,RANGEO,IPUNCH, SWALT,FACTOR,RHOG,
      6 NPOUT,RLD1,RLD2,RYD1,RYD2
-      DOUBLE PRECISION RE,H,AZR,GAMR,WE,T,GR,GT,VR(5),VTH(5),VPH(5),
-     1 VRD(5),VTHD(5),VPHD(5),XL,DT2,DT,THETA(5),PHI(5),HO,XMU,EPS,
-     2 XJ2,HREX(5),R(5),HRE,AD,AL,AY  ,WEC,WES,COSG,SING,WS
-      REAL MACH,MASS,MRAT,MOLW
       DO 128 J = 1,LTZ
       DO 128 I = 1,LTV
   128 TQR(I,J) = ALOG(TQR(I,J))
@@ -135,13 +135,13 @@ C                           INITIALIZE VALUES
       RROP = (REQ/RPO)**2 - 1.D0  ! WGS84 SECOND ECCENTRICITY SQUARED
       F = (REQ-RPO)/REQ           ! WGS84 FLATTENING
       A6 = 1.D0 - E2              ! WGS84 (1-E2) AND (1-F)^2
-      GO = 32.1740485             ! MEAN GRAV. ACCEL. AT H=0 (FT/S^2) 
+      GO = 32.1740485             ! MEAN GRAV. ACCEL. AT H=0 (FT/S^2)
       XMUM = 3.986004418D+14      ! WGS84 GMe (M^3/S^2)
       XMU = XMUM/(0.3048**3)      ! WGS84 GMe (FT^3/S^2)
       WS = 0.7292115D-4           ! WGS84 EARTH ROTATION RATE (RAD/S)
       XJ2 = 1.08262982131D-3;     ! 2ND DEGREE ZONAL HARMONIC DUE TO F
 C     XJ2 = 2.0*F/3.0 - (REQ**3)*(WS**2)/(3.0*XMU)  ! XJ2 CALCULATED
-      EPS = 3.0*(XJ2*REQ**2)/2.0  ! WGS84 GRAV POTENTIAL CONSTANT (M^2)            
+      EPS = 3.0*(XJ2*REQ**2)/2.0  ! WGS84 GRAV POTENTIAL CONSTANT (M^2)
       WE = 0.0
       MACH = 0.0
       ISWH = 0
@@ -221,7 +221,7 @@ C                             ROTATING EARTH OPTION
       QDFMLS = QDFM
       QDCLS = QDC
       QDRLS = QDR
-      IF (ROTOPT.NE.0.0) WE = WS 
+      IF (ROTOPT.NE.0.0) WE = WS
       IF (IOBL.EQ.0) GO TO 603
       RE = REQ/(DSQRT(1.0+RROP*SIN(XLAT/RAD)**2))
       HRE = HO + RE
@@ -264,7 +264,7 @@ C     AZI = ATAN2(C3 + C1/COS(GAMREL/RAD)/C2)*RAD
   131 IPOUT = 1
 C   WRITE INITIAL CONDITIONS--------------------
       WRITE(6,450) CASE, JDATE
-      WRITE(6,475) 
+      WRITE(6,475)
       IPP1 = IPASS + 1
       IF (NPASS.GT.0) WRITE(6,476) IPP1
       WRITE(6,492) VO, VI, GAMO, GAMI, AZO, AZI, TO, WO,
@@ -622,7 +622,7 @@ C                            PARAMETER CALCULATIONS
       AY = RYD*AD
       RETURN
       END
-C************************************************************************  
+C************************************************************************
       SUBROUTINE OUTPT
       COMMON/DPRES/RE,H(5),AZR,GAMR,WE,T,GR,AD,AL,AY
       COMMON/FLOT /THETO,PHIO,THETAX,PHIX,GO,MASS,RAD,RHO,WTMULT,
@@ -717,10 +717,10 @@ C    & RANGE*1853.2
   450 FORMAT(    17A4,1X,I02 ,1H/,I02 ,1H/,I4  )
   451 FORMAT(1H1,25X,24HAEC SAFETY ANALYSIS       )
   455 FORMAT(/ 90H TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BET
-     1A       QDCW      QDRAD     QDFM      , 
+     1A       QDCW      QDRAD     QDFM      ,
      2       / 90H GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD
-     3        QCW       QRAD      DIFMD    ,  
-     4       / 90H           P(PSF)     AZ(DEG)   GAMMA    KNUD #    W(L 
+     3        QCW       QRAD      DIFMD    ,
+     4       / 90H           P(PSF)     AZ(DEG)   GAMMA    KNUD #    W(L
      5BS)     HT(BTU/LB) PTS(ATM)  S(IN)     )
   460 FORMAT(1H0,   F9.3, 4F10.2,F10.4, 3F10.2 /
      11X,F9.2  , 3F10.2,F10.6,F10.4,2F10.2 ,F10.6/
@@ -732,7 +732,7 @@ C    & RANGE*1853.2
   702 FORMAT(12X,2(F12.6,1H,),I8)
       RETURN
       END
-C************************************************************************  
+C************************************************************************
       SUBROUTINE KEPLR
       COMMON/DPRES/RE,H(5),AZR,GAMR,WE,T,GR,AD,AL,AY
       COMMON/FLOT /THETO,PHIO,THETAX,PHIX,GO,MASS,RAD,RHO,WTMULT,
@@ -905,7 +905,7 @@ C
    90 AZMUTH = ARCTAN
       RETURN
       END
-C************************************************************************ 
+C************************************************************************
       SUBROUTINE ATM(Z1,P1,T1,W1,A1,D1)
 C  U.S. STANDARD ATMOSPHERE TO 700000 METERS.
 C  INPUT IS ALTITUDE IN FT (GEOMETRIC). OUTPUT IS,
@@ -946,7 +946,7 @@ C  ALTITUDE ABOVE 90000 METERS
    51 IF (Z1.GT.170.0) GO TO 57
       W1 = -.41873644E+02 + .22496378E+01*Z1 - .25825938E-01*(Z1**2)
      &     +.12705198E-03*(Z1**3) - .22989608E-06*(Z1**4)
-      GO TO 53   
+      GO TO 53
    57 W1 = +.28312068E+02 + .11190901E-01*Z1 - .18061034E-03*(Z1**2)
      &     +.31829429E-06*(Z1**3) - .16924926E-09*(Z1**4)
    53 Z1  = Z1*C2
@@ -1042,11 +1042,11 @@ C     CONVERTS GEODETIC LATITUDE LATG TO GEOCENTRIC LATITUDE LATC
 C
 C REFERENCES:
 C
-C [1] Rose, D., "Converting between Earth-Centered, Earth Fixed and 
+C [1] Rose, D., "Converting between Earth-Centered, Earth Fixed and
 C     Geodetic Coordinates", (Nov 2014). Web available at:
 C     https://danceswithcode.net/engineeringnotes/
 C
-C [2] Stevens, Brian L., Frank L. Lewis, "Aircraft Control and Simulation", 
+C [2] Stevens, Brian L., Frank L. Lewis, "Aircraft Control and Simulation",
 C     Wiley–Interscience, (1992).
 C
       COMMON /GEOD/ A, B, E2, EP2, F, A6, IOBL

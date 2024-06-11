@@ -69,6 +69,10 @@ C
      1   CASFTB(25,10),TBLMAC(100),VELTBL(10),CDTBL(100),ALTBL(100),
      2  CDMTBL(100),TBLMA(100)
       COMMON/RADI/TQR(12,8),TALR(8),TVER(12),LTV,LTZ
+      DOUBLE PRECISION RE,H,AZR,GAMR,WE,T,GR,GT,VR(5),VTH(5),VPH(5),
+     1 VRD(5),VTHD(5),VPHD(5),XL,DT2,DT,THETA(5),PHI(5),HO,XMU,EPS,
+     2 REQ,RPO,RROP,HREX(5),R(5),HRE,AD,AL,AY  ,WEC,WES,COSG,SING
+      REAL MACH,MASS,MRAT,MOLW
       NAMELIST/INPUT/      HO    ,VI    ,GAMI  ,TO    ,HCO   ,XLAT  ,
      1       XLONG ,AZREL ,WO    ,SREF  ,DREF  ,IAERO ,NOUT  ,LKASE ,
      2              ROTOPT,TFIL  ,WFIL  ,CAFIL        ,SKINFR,
@@ -76,10 +80,6 @@ C
      4       VREL  ,GAMREL , IRI  ,SWMCH , AZI ,HOUT ,IOBL ,NPASS,
      5         DTMAX, DTMIN,JAERO,RANGEO,IPUNCH, SWALT,FACTOR,RHOG,
      6 NPOUT,RLD1,RLD2,RYD1,RYD2
-      DOUBLE PRECISION RE,H,AZR,GAMR,WE,T,GR,GT,VR(5),VTH(5),VPH(5),
-     1 VRD(5),VTHD(5),VPHD(5),XL,DT2,DT,THETA(5),PHI(5),HO,XMU,EPS,
-     2 REQ,RPO,RROP,HREX(5),R(5),HRE,AD,AL,AY  ,WEC,WES,COSG,SING
-      REAL MACH,MASS,MRAT,MOLW
       DO 128 J = 1,LTZ
       DO 128 I = 1,LTV
   128 TQR(I,J) = ALOG(TQR(I,J))
@@ -118,7 +118,7 @@ C   INITILAZE NAMELIST VARIABLES
       FACTOR = 1.26
       RHOG = 1.75
       NPOUT = 1
-      OPEN(UNIT=7,FILE="TDOF_geoc.dat",FORM="FORMATTED")      
+      OPEN(UNIT=7,FILE="TDOF_geoc.dat",FORM="FORMATTED")
 C                           INITIALIZE VALUES
    10 JACK=1
       KJACK=1
@@ -244,7 +244,7 @@ C                             ROTATING EARTH OPTION
   131 IPOUT = 1
 C   WRITE INITIAL CONDITIONS--------------------
       WRITE(6,450) CASE, JDATE
-      WRITE(6,475) 
+      WRITE(6,475)
       IPP1 = IPASS + 1
       IF (NPASS.GT.0) WRITE(6,476) IPP1
       WRITE(6,492) VO, VI, GAMO, GAMI, AZO, AZI, TO, WO,
@@ -459,7 +459,7 @@ C                             CHECK ON CASE NUMBER
       GO TO 240
   611 NKASE = NKASE + 1
       IF (NKASE.LE.LKASE) GO TO 10
-      CLOSE(7)  
+      CLOSE(7)
       STOP
 C                            READ FORMATS
    40 FORMAT(   8X,17HINPUT AERO TABLE / 5X,2HCD,8X,12HALTITUDE(FT))
@@ -690,10 +690,10 @@ C    & RANGE*1853.2
   450 FORMAT(    17A4,1X,I2  ,1H/,I2  ,1H/,I4  )
   451 FORMAT(1H1,25X,24HAEC SAFETY ANALYSIS       )
   455 FORMAT(/ 90H TIME(SEC) VR(FPS)    ALT(FT)   LAT(DEG) Q(PSF)    BET
-     1A       QDCW      QDRAD     QDFM      , 
+     1A       QDCW      QDRAD     QDFM      ,
      2       / 90H GSEC      MACH      RANGE(NM)  LON(DEG) RN*10-6   CD
-     3        QCW       QRAD      DIFMD    ,  
-     4       / 90H           P(PSF)     AZ(DEG)   GAMMA    KNUD #    W(L 
+     3        QCW       QRAD      DIFMD    ,
+     4       / 90H           P(PSF)     AZ(DEG)   GAMMA    KNUD #    W(L
      5BS)     HT(BTU/LB) PTS(ATM)  S(IN)     )
   460 FORMAT(1H0,   F9.3, 4F10.2,F10.4, 3F10.2 /
      11X,F9.2  , 3F10.2,F10.6,F10.4,2F10.2 ,F10.6/
@@ -701,8 +701,8 @@ C    & RANGE*1853.2
   461 FORMAT(1X, F9.2 , F10.1, 3F10.2, F10.5,F6.1,F7.0,F7.2)
   462 FORMAT(1H0// 5X,13H CROSS RANGE=,F10.3,5X,13H DOWN RANGE=    ,
      1 F10.3)
-  701 FORMAT(1X,F9.3,4(1H,,F10.2),1H,,F9.4,1H,,F12.2)     
-  702 FORMAT(12X,2(F12.6,1H,),I8)     
+  701 FORMAT(1X,F9.3,4(1H,,F10.2),1H,,F9.4,1H,,F12.2)
+  702 FORMAT(12X,2(F12.6,1H,),I8)
       RETURN
       END
 C***********************************************************************
@@ -919,7 +919,7 @@ C  ALTITUDE ABOVE 90000 METERS
    51 IF (Z1.GT.170.0) GO TO 57
       W1 = -.41873644E+02 + .22496378E+01*Z1 - .25825938E-01*(Z1**2)
      &     +.12705198E-03*(Z1**3) - .22989608E-06*(Z1**4)
-      GO TO 53   
+      GO TO 53
    57 W1 = +.28312068E+02 + .11190901E-01*Z1 - .18061034E-03*(Z1**2)
      &     +.31829429E-06*(Z1**3) - .16924926E-09*(Z1**4)
    53 Z1  = Z1*C2
@@ -975,5 +975,5 @@ CPIF11        LINEAR INTERPOLATION OVER TWO VARIABLES
       F2 = F(I-1,J  ) + XR*(F(I,J  )-F(I-1,J  ))
       PIF11 = F1 + YR*(F2-F1)
       RETURN
-      END     
-   
+      END
+

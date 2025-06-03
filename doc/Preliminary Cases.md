@@ -9,7 +9,7 @@ This document describes the purpose of provided **traj3D1** input namelist files
 + Impact Relative Velocity and
 + Trajectory Launch Point to Maximum Altitude Point to Impact Point Great Circle Paths.
 
-The mass and aerodynamic characterization for notional ejecta as a solid ice sphere approximately one meter in diameter are:
+The mass and aerodynamic characterization for notional ejecta as a solid ice hemisphere approximately one meter in diameter are:
 
 + Weight =  530.4 lbs,
 + Ref. Area = 8.45 square feet, and
